@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Exports\ProductsExport;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class CategoryController extends Controller
 {
@@ -32,18 +36,22 @@ class CategoryController extends Controller
         ])->with('i', (request()->input('page', 1) - 1) * $categories->perPage());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * Create a new instance of the model.
-     * Retrieve related data for belongsTo relationships.
-     * Return the create view with the model instance and related data.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function pdf()
+    {
+        $categories=Category::all();
+        $pdf = Pdf::loadView('admin.category.pdf', compact('categories'));
+        return $pdf->stream();
+    
+    }
+
+
+
     public function create()
     {
+        // $categories = Category::whereNull()->get();
+        // $relatedData = $this->getRelatedData(new Category());
         $category = new Category();
-        $relatedData = $this->getRelatedData($category);
+        $relatedData['category'] = $category;
         return view('admin.category.create', $relatedData);
     }
 

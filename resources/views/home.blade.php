@@ -8,10 +8,15 @@
 @stop
 
 @section('content')
-    <p>Welcome to this beautiful admin panel.</p>
-    <a href="{{route('admin.category.index')}}">crud categorias</a>
-    <br>
-    <a href="{{route('admin.products.index')}}">crud productos</a>
+<div class="col-12">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/home">Inicio</a></li>
+            <li class="breadcrumb-item active" aria-current="categories"><a href="{{route('admin.category.index')}}">Categorias</a></li>
+            <li class="breadcrumb-item active" aria-current="products"><a href="{{route('admin.products.index')}}">Productos</a></li>
+        </ol>
+    </nav>
+</div>
 @stop
 
 

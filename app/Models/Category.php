@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Subcategory;
 use Illuminate\Database\Eloquent\Model;
 
 
@@ -24,7 +25,8 @@ class Category extends Model
     
     // Validation rules for this model
       static $rules = [
-      'name' => 'required', 
+      'name' => 'required|min:5|max:30', 
+      'description'=>'required|max:200'
     
     ];
     
@@ -48,6 +50,11 @@ class Category extends Model
     public function products()
     {
         return $this->hasMany('App\Models\Product', 'category_id', 'id');
+    }
+
+    public function subcategories()
+    {
+        return $this->hasMany("App\Subcategory");
     }
 
    

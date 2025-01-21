@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Exports\ProductsExport;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
 {
@@ -36,21 +39,26 @@ class ProductController extends Controller
             'products' => $products,
         ])->with('i', (request()->input('page', 1) - 1) * $products->perPage());
     }
-
-    /**
-     * Show the form for creating a new resource.
-     * Create a new instance of the model.
-     * Retrieve related data for belongsTo relationships.
-     * Return the create view with the model instance and related data.
-     *
-     * @return \Illuminate\Http\Response
-     */
+        public function pdf()
+        {
+            $products=Product::all();
+            $pdf = Pdf::loadView('admin.products.pdf', compact('products'));
+            return $pdf->stream();
+        
+        }
+        
+        public function excel()
+        {
+            return Excel::download(new ProductsExport, 'products.xlsx');
+        }
     public function create()
     {
         $product = new Product();
         $relatedData = $this->getRelatedData($product);
         return view('admin.products.create', $relatedData);
     }
+
+ 
 
     /**
      * Store a newly created resource in storage.
@@ -63,11 +71,38 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate(Product::$rules);
-        
-        
 
-        $product = Product::create($request->all());
+        // request()->validate(Product::$rules);
+        
+        
+        $validatedData = $request->validate(array_merge(
+            Product::$rules,
+            ['image' => 'nullable|image|mimes:jpeg,jpg,png|max:10240']
+        ));
+        
+   
+        //
+        
+        if ($request->hasFile('image')) {
+                $file = $request->file('image');
+            if($file->isValid()){
+                // Crear la carpeta si no existe
+                $imageFolder = public_path('images/products');
+                    if (!file_exists(public_path('images/products'))) {
+                        mkdir(public_path('images/products'), 0755, true);
+                    }
+
+                    $imageName = time() . '_' . $file->getClientOriginalName(); // Generar un nombre único
+               
+                    $file->move($imageFolder, $imageName); // Mover a la carpeta 'public/images'
+                    $validatedData['image'] = 'images/products/' . $imageName; // Guardar la ruta en la base de datos
+                    // dd($validatedData);
+                }
+
+        }
+        //
+        // $product = Product::create($request->all());
+        $product = Product::create($validatedData);
 
         return redirect()->route('admin.products.index')
             ->with('success', 'Product created successfully.');
@@ -117,8 +152,37 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        request()->validate(Product::$rules);
-        $product->update($request->all());
+
+        $validatedData = $request->validate(array_merge(
+            Product::$rules,
+            ['image' => 'nullable|image|mimes:jpeg,jpg,png|max:10240']
+        ));
+        
+   
+        //
+        
+        if ($request->hasFile('image')) {
+                $file = $request->file('image');
+            if($file->isValid()){
+                // Crear la carpeta si no existe
+                $imageFolder = public_path('images/products');
+                    if (!file_exists(public_path('images/products'))) {
+                        mkdir(public_path('images/products'), 0755, true);
+                    }
+
+                    $imageName = time() . '_' . $file->getClientOriginalName(); // Generar un nombre único
+               
+                    $file->move($imageFolder, $imageName); // Mover a la carpeta 'public/images'
+                    $validatedData['image'] = 'images/products/' . $imageName; // Guardar la ruta en la base de datos
+                    // dd($validatedData);
+                }
+
+        }
+
+      
+
+        $product->update($validatedData);
+        // $product->update($request->all());
         return redirect()->route('admin.products.index')->with('success', 'Product updated successfully');
     }
 

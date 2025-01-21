@@ -26,8 +26,12 @@ class Product extends Model
     
     // Validation rules for this model
     static $rules = [
-		'name' => 'required',
-		'category_id' => 'required',];
+		'name' => 'required|min:5|max:30',
+		'description' => 'required|min:5',
+    'image' => 'mimes:jpeg,jpg,png|max:10240',
+		'category_id' => 'required|integer',
+    
+  ];
     
     // Number of items to be shown per page
     protected $perPage = 20;

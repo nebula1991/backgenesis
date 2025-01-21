@@ -12,8 +12,9 @@
             <div class="col-12">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="products">Products</li>
+                        <li class="breadcrumb-item"><a href="/home">Inicio</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('admin.category.index')}}">Categorias</a></li>
+                        <li class="breadcrumb-item active" aria-current="products"><a href="{{route('admin.products.index')}}">Productos</a></li>
                     </ol>
                 </nav>
             </div>
@@ -23,8 +24,10 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                Product
-                                <a href="{{ route('admin.products.create') }}" class="btn btn-primary float-end btn-sm"><i class="fa fa-solid fa-plus"></i> Create New</a>
+                                
+                                <a href="{{ route('admin.products.create') }}" class="btn btn-primary float-end btn-sm"><i class="fa fa-solid fa-plus"></i> Crear Producto</a>
+                                <a href="{{route('admin.products.pdf')}}" class="btn btn-sm btn-success" target="_blank" > PDF</a>
+                                <a href="{{route('admin.products.excel')}}" class="btn btn-sm btn-success" target="_blank" > XLS</a>
                             </div>
                             <div class="card-body">
                                 <!-- Search and Filter Form -->
@@ -33,7 +36,6 @@
                                         <input type="text" name="search" class="form-control form-control-sm" placeholder="Search" value="{{ request('search') }}">
                                     </div>
                                     <div class="col-md-3">
-                                        <button type="submit" class="btn btn-primary btn-sm">Search</button>
                                         <a href="{{ route('admin.products.index') }}"><button type="submit" class="btn btn-secondary btn-sm">Search</button></a>
                                     </div>
                                 </form>
@@ -42,14 +44,12 @@
                                     <table class="table table-striped table-hover">
                                         <thead class="thead">
                                             <tr>
-                                                <th>No</th>
-                                                
-										<th>Name</th>
-										<th>Description</th>
-										<th>Image</th>
-										<th>Category </th>
-
-                                                <th>Action</th>
+                                                <th>Num</th>
+                                                <th>Nombre</th>
+                                                <th>Descripción</th>
+                                                <th>Imagen</th>
+                                                <th>Categoria </th>
+                                                <th>Acción</th>
                                             </tr>
                                         </thead>
                                         <tbody>

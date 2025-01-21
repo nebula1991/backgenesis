@@ -6,27 +6,27 @@
             <div class="col-12">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="/categories">Categories</a></li>
-                        <li class="breadcrumb-item active" aria-current="create">Add Category</li>
+                        <li class="breadcrumb-item"><a href="/home">Inicio</a></li>
+                        <li class="breadcrumb-item active" aria-current="categories"><a href="{{route('admin.category.index')}}">Categorias</a></li>
+                        <li class="breadcrumb-item active" aria-current="products"><a href="{{route('admin.products.index')}}">Productos</a></li>
                     </ol>
                 </nav>
             </div>
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        Show Category
-                            <a class="btn btn-primary float-end btn-sm" href="{{ route('categories.index') }}"> Back </a>
+                        Categoria
+                            <a class="btn btn-primary float-end btn-sm" href="{{ route('admin.category.index') }}"> Back </a>
                     </div>
                     <div class="card-body">
                         <div class="row">
                             
                         <div class="col-md-6">
-                            <strong>Name:</strong>
+                            <strong>Nombre:</strong>
                             {{ $category->name }}
                         </div>
                         <div class="col-md-6">
-                            <strong>Description:</strong>
+                            <strong>Descripcion:</strong>
                             {{ $category->description }}
                         </div>
 

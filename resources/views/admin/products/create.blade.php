@@ -12,9 +12,9 @@
             <div class="col-12">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="/products">Products</a></li>
-                        <li class="breadcrumb-item active" aria-current="create">Add Product</li>
+                        <li class="breadcrumb-item"><a href="{{route('admin.products.index')}}">Inicio</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('admin.category.index')}}">Categorias</a></li>
+                        <li class="breadcrumb-item active" aria-current="create">Añadir Producto</li>
                     </ol>
                 </nav>
             </div>
@@ -22,10 +22,10 @@
 
                 <div class="card">
                     <div class="card-header">
-                       Create Product
+                       Crear Producto
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('products.store') }}"  role="form" enctype="multipart/form-data" class="row g-3">
+                        <form method="POST" action="{{ route('admin.products.store') }}"  role="form" enctype="multipart/form-data" class="row g-3">
                             @csrf
 
                             @include('admin.products.form')
