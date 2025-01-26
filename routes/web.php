@@ -22,7 +22,7 @@ Auth::routes();
 
 
 Route::resource('categories', App\Http\Controllers\CategoryController::class);
-Route::resource('subcategories', App\Http\Controllers\SubcategoryController::class);
+Route::resource('subcategories', SubcategoryController::class);
 Route::resource('products', App\Http\Controllers\ProductController::class);
 
 
@@ -37,11 +37,16 @@ Route::delete('admin/categories/{category}/delete', [CategoryController::class, 
 
 //Rutas de admin de subcategorias
 Route::get('admin/subcategories', [SubcategoryController::class, 'index'])->name('admin.subcategory.index');
-
+Route::get('admin/subcategories/create', [SubcategoryController::class, 'create'])->name('admin.subcategory.create');
+Route::post('admin/subcategories/store', [SubcategoryController::class, 'store'])->name('admin.subcategory.store');
+Route::get('admin/subcategories/{subcategory}/edit', [SubcategoryController::class, 'edit'])->name('admin.subcategory.edit');
+Route::patch('admin/subcategories/{subcategory}/update', [SubcategoryController::class, 'update'])->name('admin.subcategory.update');
+Route::delete('admin/subcategories/{subcategory}/delete', [SubcategoryController::class, 'destroy'])->name('admin.subcategory.delete');
 
 
 //Rutas de los productos
 Route::get('admin/products', [ProductController::class, 'index'])->name('admin.products.index');
+Route::get('admin/products/show', [ProductController::class, 'show'])->name('admin.products.show');
 Route::get('admin/products/pdf', [ProductController::class, 'pdf'])->name('admin.products.pdf');
 Route::get('admin/products/excel', [ProductController::class, 'excel'])->name('admin.products.excel');
 Route::get('admin/products/create', [ProductController::class, 'create'])->name('admin.products.create');

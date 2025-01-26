@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Category;
+use App\Models\RateProduct;
+use App\Models\Subcategory;
 use Illuminate\Database\Eloquent\Model;
 
 
@@ -23,24 +26,16 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     
-    
-    // Validation rules for this model
-    static $rules = [
-		'name' => 'required|min:5|max:30',
-		'description' => 'required|min:5',
-    'image' => 'mimes:jpeg,jpg,png|max:10240',
-		'category_id' => 'required|integer',
-    
-  ];
+  
     
     // Number of items to be shown per page
     protected $perPage = 20;
 
     // Attributes that should be mass-assignable
-    protected $fillable = ['name','description','image','category_id'];
+    protected $fillable = ['name','description','price','image','category_id','subcategory_id'];
     
     // Attributes that are searchable
-    static $searchable = ['name','description','image','category_id'];
+    static $searchable = ['name','description','price','image','category_id','subcategory_id'];
     
     
     /**
@@ -48,7 +43,31 @@ class Product extends Model
      */
     public function category()
     {
-        return $this->belongsTo('App\Models\Category', 'id', 'category_id');
+        return $this->belongsTo(Category::class);
     }
+
+    public function subcategory()
+    {
+        return $this->belongsTo(Subcategory::class);
+    }
+    public function rateProducts()
+    {
+    return $this->hasMany(RateProduct::class);
+    } 
+
+    // Método para obtener el precio actual basado en la temporada
+    public function seasons()
+    {
+        $today = now();
+        $rateProduct = $this->rateProducts()
+            ->where('start_date', '<=', $today)
+            ->where('end_date', '>=', $today)
+            ->first();
+
+        return $rateProduct ? $rateProduct->price : $this->price; // Precio estacional o el precio base
+    }
+
+
+
     
 }

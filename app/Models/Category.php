@@ -23,12 +23,6 @@ class Category extends Model
 {
     
     
-    // Validation rules for this model
-      static $rules = [
-      'name' => 'required|min:5|max:30', 
-      'description'=>'required|max:200'
-    
-    ];
     
     // Number of items to be shown per page
     protected $perPage = 20;
@@ -54,7 +48,7 @@ class Category extends Model
 
     public function subcategories()
     {
-        return $this->hasMany("App\Subcategory");
+        return $this->hasMany(Subcategory::class);
     }
 
    

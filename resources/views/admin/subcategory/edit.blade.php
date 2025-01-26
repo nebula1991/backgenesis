@@ -3,7 +3,7 @@
 @section('title', 'AdminLTE')
 
 @section('content_header')
-    <h1>Editar Categorias</h1>
+    <h1>Editar Subcategorias</h1>
 @stop
 
 @section('content')
@@ -13,9 +13,8 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/home">Inicio</a></li>
-                        <li class="breadcrumb-item active" aria-current="categories"><a href="{{route('admin.category.index')}}">Categorias</a></li>
-                        <li class="breadcrumb-item active" aria-current="subcategories"><a href="{{route('admin.subcategory.index')}}">Subcategorias</a></li>
-                        <li class="breadcrumb-item active" aria-current="products"><a href="{{route('admin.products.index')}}">Productos</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.category.index') }}">Categorías</a></li>
+                        <li class="breadcrumb-item active" aria-current="{{route('admin.subcategory.index')}}">Subcategorías</li>
                     </ol>
                 </nav>
             </div>
@@ -26,11 +25,11 @@
                         Actualizar Categoria
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('admin.category.update', $category->id) }}" class="row g-3">
+                        <form method="POST" action="{{ route('admin.subcategory.update', $subcategory->id) }}" class="row g-3" novalidate>
                             {{ method_field('PATCH') }}
                             @csrf
 
-                            @include('admin.category.form')
+                            @include('admin.subcategory.form')
 
                         </form>
                     </div>

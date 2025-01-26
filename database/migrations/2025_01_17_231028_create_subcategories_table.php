@@ -15,8 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description');
-            $table->integer('category_id')->unsigned(0);
-            $table->foreign('category_id')->references('id')->on('categories');
+            $table->foreignId('category_id')->constrained()->onDelete('cascade'); // Esto agrega la columna category_id como clave foránea
             $table->timestamps();
         });
     }

@@ -66,8 +66,15 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate(Category::$rules);
+
+        $request->validate([
+            'name' => 'required|min:5|max:30',
+            'description' => 'required|max:200',
+        ]);
+      
+
         $category = Category::create($request->all());
+
         return redirect()->route('admin.category.index')
             ->with('success', 'Categoria creada correctamente.');
     }
@@ -117,8 +124,11 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {       
 
-      
-        request()->validate(Category::$rules);
+          $request->validate([
+            'name' => 'required|min:5|max:30',
+            'description' => 'required|max:200',
+        ]);
+     
 
     
         $category->update($request->all());
@@ -138,7 +148,7 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         Category::find($id)->delete();
-        return redirect()->route('admin.category.index')->with('success', 'Categoria eliminada con exito');
+        return redirect()->route('admin.category.index')->with('destroy', 'Categoria eliminada con exito');
     }
 
     /**

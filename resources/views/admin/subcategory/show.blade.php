@@ -1,10 +1,4 @@
-@extends('adminlte::page')
-
-@section('title', 'AdminLTE')
-
-@section('content_header')
-    <h1>Crear Productos</h1>
-@stop
+@extends('layouts.app')
 
 @section('content')
     <section class="container-fluid py-4">
@@ -20,21 +14,27 @@
                 </nav>
             </div>
             <div class="col-md-12">
-
                 <div class="card">
                     <div class="card-header">
-                       Crear Producto
+                        Subcategoria
+                            <a class="btn btn-primary float-end btn-sm" href="{{ route('admin.subcategory.index') }}"> Back </a>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('admin.products.store') }}"  role="form" enctype="multipart/form-data" class="row g-3">
-                            @csrf
-
-                            @include('admin.products.form')
-
-                            <div class="col-12 mt-2">
-                                <button type="submit" class="btn btn-primary">Guardar</button>
-                            </div>
-                        </form>
+                        <div class="row">
+                            
+                        <div class="col-md-6">
+                            <strong>Nombre:</strong>
+                            {{ $subcategory->name }}
+                        </div>
+                        <div class="col-md-6">
+                            <strong>Descripcion:</strong>
+                            {{ $subcategory->description }}
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label"><strong>Categoría:</strong></label>
+                            <p>{{ $subcategory->category->name }}</p> <!-- Aquí obtenemos el nombre de la categoría asociada -->
+                        </div>
+                        </div>
                     </div>
                 </div>
             </div>
