@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Event;
 use App\Models\Category;
 use App\Models\RateProduct;
 use App\Models\Subcategory;
@@ -53,6 +54,11 @@ class Product extends Model
     public function rateProducts()
     {
     return $this->hasMany(RateProduct::class);
+    } 
+
+    public function Events()
+    {
+    return $this->hasMany(Event::class);
     } 
 
     // Método para obtener el precio actual basado en la temporada

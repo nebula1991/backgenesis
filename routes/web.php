@@ -4,6 +4,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubcategoryController;
@@ -54,6 +55,11 @@ Route::post('admin/products/store', [ProductController::class, 'store'])->name('
 Route::get('admin/products/{product}/edit', [ProductController::class, 'edit'])->name('admin.products.edit');
 Route::get('admin/products/{product}/update', [ProductController::class, 'update'])->name('admin.products.delete');
 Route::delete('admin/products/{product}/delete', [ProductController::class, 'destroy'])->name('admin.products.delete');
+
+
+//Rutas de calendario
+Route::get('admin/events', [EventController::class, 'index'])->name('admin.events.index');
+Route::post('admin/events', [EventController::class, 'store'])->name('admin.events.store');
 
 
 

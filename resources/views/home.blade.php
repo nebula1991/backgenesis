@@ -4,7 +4,6 @@
 
 @section('content_header')
     <h1>Administrador</h1>
-    
 @stop
 
 @section('content')

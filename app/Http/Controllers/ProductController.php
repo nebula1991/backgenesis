@@ -112,8 +112,8 @@ class ProductController extends Controller
         }
         //
 
-        // $product = Product::create($request->all());
-        $product = Product::create($validatedData);
+        $product = Product::create($request->all());
+        // $product = Product::create($validatedData);
 
 
         return redirect()->route('admin.products.index')
