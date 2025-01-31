@@ -9,11 +9,13 @@ class Event extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['units', 'unit_price', 'start_date', 'end_date'];
 
-    public function Products()
-    {
-    return $this->belongsTo(Product::class);
-    } 
+
+    protected $fillable = ['title','descripcion', 'start', 'end'];
+
+    // public function Products()
+    // {
+    // return $this->belongsTo(Product::class);
+    // } 
 
 }

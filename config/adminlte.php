@@ -325,12 +325,17 @@ return [
   
         [
             'text' => 'CATEGORIAS',
-            'url' => 'categories',
+            'url' => 'admin/categories',
          
         ],
         [
             'text' => 'PRODUCTOS',
-            'url' => 'products',
+            'url' => 'admin/products',
+
+        ],
+        [
+            'text' => 'CALENDARIO',
+            'url' => 'admin/events',
 
         ],
 
