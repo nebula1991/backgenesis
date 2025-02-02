@@ -17,10 +17,7 @@
 
 </div>
 
-{{-- <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#event">
-  Launch
-</button> --}}
+
 
 <!-- Modal -->
 <div class="modal fade" id="event" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
@@ -47,9 +44,15 @@
                     </div>
 
                     <div class="form-group">
-                      <label for="descripcion">Descripcion</label>
-                      <input type="text"
-                        class="form-control" name="descripcion" id="descripcion" aria-describedby="helpId" placeholder="Descripcion">
+                      <label for="units">units</label>
+                      <input type="number"
+                        class="form-control" name="units" id="units" aria-describedby="helpId" placeholder="unidades">
+                    </div>
+
+                    <div class="form-group">
+                      <label for="price">Precio</label>
+                      <input type="number"
+                        class="form-control" name="price" id="price" aria-describedby="helpId" placeholder="precio">
                     </div>
 
 
@@ -126,10 +129,11 @@
             console.log("ID del Evento:", info.event.id);
             console.log(info);
             console.log(info.event.title);
-            console.log(info.event.descripcion);
+            console.log(info.event.units);
+            console.log(info.event.price);
             console.log(info.event.start);
             console.log(info.event.end);
-            console.log(info.event.extendedProps.descripcion);
+            console.log(info.event.extendedProps.units);
             
 
             // Guardar el ID en el campo oculto
@@ -137,7 +141,8 @@
 
             $('#title').val(info.event.title);
 
-            $('#descripcion').val(info.event.extendedProps.descripcion);
+            $('#units').val(info.event.extendedProps.units);
+            $('#price').val(info.event.extendedProps.price);
 
             
             // Obtener la fecha en formato local (sin ajustes de zona horaria)
@@ -188,7 +193,8 @@
         newEvent = {
             id: $('#eventId').val(),
             title: $('#title').val(),
-            descripcion: $('#descripcion').val(),
+            units: $('#units').val(),
+            price: $('#price').val(),
             start: $('#start').val(),
             end: $('#end').val(),
             '_token': $("meta[name='csrf-token']").attr("content"),

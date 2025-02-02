@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Product;
+use App\Models\RateProduct;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,9 +16,16 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        \App\Models\User::factory()->create([
+            'name' => 'StudioGenesis',
+            'email' => 'admin@admin.com',
+            'password' => bcrypt('password')
+        ]);
+        
+        $this->call(CategorySeeder::class);
+        $this->call(SubcategorySeeder::class);
+
+        Product::factory(10)->create();
+        RateProduct::factory(20)->create();
     }
 }

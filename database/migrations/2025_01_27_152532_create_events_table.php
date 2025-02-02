@@ -14,13 +14,11 @@ return new class extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->text('descripcion')->nullable();
-            // $table->foreignId('product_id')->constrained()->onDelete('cascade');
-            // $table->integer('units');
-            // $table->integer('unit_price', 8, 2)->nullable(); // Precio unitario del producto
-            // $table->integer('total_price', 8, 2)->nullable(); // Precio total (units * unit_price)
+            $table->integer('units')->nullable();
+            $table->double('price',8,2)->nullable();
             $table->dateTime('start');
             $table->dateTime('end')->nullable();
+        // $table->foreignId('product_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

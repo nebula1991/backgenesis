@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\RateProduct;
 use App\Models\Subcategory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 
 /**
@@ -27,7 +28,7 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     
-  
+    use HasFactory;
     
     // Number of items to be shown per page
     protected $perPage = 20;

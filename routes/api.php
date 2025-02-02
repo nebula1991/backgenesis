@@ -2,6 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\EventController;
+use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\SubcategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +21,19 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('categories/all',[ CategoryController::class,'all'] );
+Route::resource('categories', CategoryController::class)->except('create','edit');
+
+    
+Route::get('subcategories/all',[ SubcategoryController::class,'all'] );
+Route::resource('subcategories', SubcategoryController::class)->except('create','edit');
+
+Route::get('products/all',[ ProductController::class,'all'] );
+Route::resource('products', ProductController::class)->except('create','edit');
+
+
+Route::get('events/all',[ EventController::class,'all'] );
+Route::resource('events', EventController::class);
+
+

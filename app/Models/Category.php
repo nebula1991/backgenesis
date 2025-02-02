@@ -22,7 +22,7 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     
-    
+
     
     // Number of items to be shown per page
     protected $perPage = 20;

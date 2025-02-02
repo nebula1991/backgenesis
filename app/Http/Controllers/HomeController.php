@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -15,7 +16,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        // $this->middleware('auth');
+         $this->middleware('auth');
     }
 
     /**
@@ -28,9 +29,14 @@ class HomeController extends Controller
         $categories = Category::all();
         $products = Product::all();
         
+          // Si el calendario tiene eventos, los pasas a la vista
+            $events = Event::all(); // Asumiendo que tienes un modelo Event
+    
+        
         return view('index',[
             'categories' => $categories,
-            'products' => $products
+            'products' => $products,
+            'events' => $events
         ]);
     }
 

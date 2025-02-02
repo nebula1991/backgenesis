@@ -1,9 +1,14 @@
 @extends('adminlte::page')
 
-@section('title', 'AdminLTE')
+@section('title', '')
 
 @section('content_header')
-    <h1>Productos</h1>
+<div class="row">
+    <div class="col-12 text-center">
+        <h1 class="text-uppercase">Productos</h1>
+    </div>
+</div>
+    
         @if(session('success'))
         <div class="alert alert-success mt-2">
             {{session('success')}}
@@ -18,24 +23,12 @@
 
 @section('content')
 <div class="container-fluid py-4">
-    <div class="row mx-md-5">
-        <div class="col-12">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/home">Inicio</a></li>
-                    <li class="breadcrumb-item active" aria-current="categories"><a
-                            href="{{route('admin.category.index')}}">Categorias</a></li>
-                    <li class="breadcrumb-item active" aria-current="subcategories"><a
-                            href="{{route('admin.subcategory.index')}}">Subcategorias</a></li>
-                    <li class="breadcrumb-item active" aria-current="products"><a
-                            href="{{route('admin.products.index')}}">Productos</a></li>
-                </ol>
-            </nav>
-        </div>
+    <div class="row mx-md-12">
+      
 
         <div class="col-12">
             <div class="row">
-                <div class="col-12">
+                
                     <div class="card">
                         <div class="card-header">
 
@@ -62,7 +55,7 @@
                                 </div>
                             </form>
 
-                            <div class="table-responsive">
+                            <div class="table-responsive col-12 mt-3">
                                 <table class="table table-striped table-hover">
                                     <thead class="thead">
                                         <tr>
@@ -83,7 +76,7 @@
 
                                             <td>{{ $product->name }}</td>
                                             <td>{{ $product->description }}</td>
-                                            <td>{{number_format($product->price,2) }}</td>
+                                            <td style="width: 80px;">{{number_format($product->price,2) }} €</td>
                                             <td>
                                                 @if($product->image)
                                                 <img src="{{ asset($product->image) }}" alt="Imagen del Producto"
@@ -92,7 +85,7 @@
                                                 No hay imagen
                                                 @endif
                                             </td>
-                                            <td>{{$product->category->name}}</td>
+                                            <td >{{$product->category->name}}</td>
 
                                             <!-- Mostrar la subcategoría asociada -->
                                             <td>
@@ -104,7 +97,7 @@
                                                 @endif
                                             </td>
 
-                                            <td>
+                                            <td style="width: 150px;">
                                                 <div class="d-flex">
                                                     <form action="{{ route('products.destroy',$product->id) }}"
                                                         method="POST">
@@ -133,6 +126,6 @@
             </div>
             {!! $products->appends(request()->query())->links() !!}
         </div>
-    </div>
+
 </div>
 @endsection

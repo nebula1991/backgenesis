@@ -34,7 +34,8 @@ class EventController extends Controller
             // Validamos los datos
             $request->validate([
                 'title' => 'required|string|max:255',
-                'descripcion' => 'nullable|string',
+                'units' => 'required',
+                'price' => 'required',
                 'start' => 'required|date',
                 'end' => 'nullable|date|after_or_equal:start',
             ]);
@@ -46,7 +47,8 @@ class EventController extends Controller
             // Guardamos el evento
             $evento = Event::create([
                 'title' => $request->title,
-                'descripcion' => $request->descripcion,
+                'units' => $request->units,
+                'price' => $request->price,
                 'start' => $startDate,
                 'end' => $endDate,
             ]);
@@ -85,7 +87,8 @@ class EventController extends Controller
 
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
-            'descripcion' => 'nullable|string',
+            'units' => 'required',
+            'price' => 'required',
             'start' => 'required|date',
             'end' => 'nullable|date|after_or_equal:start',
         ]);
@@ -97,7 +100,8 @@ class EventController extends Controller
              // Actualizar el evento
              $event->update([
                 'title' => $request->title,
-                'descripcion' => $request->descripcion,
+                'units' => $request->units,
+                'price' => $request->price,
                 'start' => $startDate,
                 'end' => $endDate,
             ]);

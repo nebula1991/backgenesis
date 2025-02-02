@@ -1,9 +1,14 @@
 @extends('adminlte::page')
 
-@section('title', 'Subcategorías')
+@section('title', '')
 
 @section('content_header')
-    <h1>Subcategorias</h1>
+<div class="row">
+    <div class="col-12 text-center">
+        <h1 class="text-uppercase">Subcategorias</h1>
+    </div>
+</div>
+    
 
     @if(session('success'))
     <div class="alert alert-success mt-2">
@@ -20,16 +25,6 @@
 @section('content')
     <div class="container-fluid py-4">
         <div class="row mx-md-5">
-            <div class="col-12">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/home">Inicio</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('admin.category.index') }}">Categorías</a></li>
-                        <li class="breadcrumb-item active" aria-current="{{route('admin.subcategory.index')}}">Subcategorías</li>
-                        <li class="breadcrumb-item active" aria-current="products"><a href="{{route('admin.products.index')}}">Productos</a></li>
-                    </ol>
-                </nav>
-            </div>
 
             <div class="col-12">
                 <div class="row">

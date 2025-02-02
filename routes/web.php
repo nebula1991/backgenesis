@@ -61,7 +61,6 @@ Route::delete('admin/subcategories/{subcategory}/delete', [SubcategoryController
 
 //Rutas de los productos
 Route::get('admin/products', [ProductController::class, 'index'])->name('admin.products.index');
-Route::get('admin/products/show', [ProductController::class, 'show'])->name('admin.products.show');
 Route::get('admin/products/pdf', [ProductController::class, 'pdf'])->name('admin.products.pdf');
 Route::get('admin/products/excel', [ProductController::class, 'excel'])->name('admin.products.excel');
 Route::get('admin/products/create', [ProductController::class, 'create'])->name('admin.products.create');
