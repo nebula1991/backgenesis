@@ -38,9 +38,18 @@
                     <input type="hidden" id="eventId" name="eventId">
 
                     <div class="form-group">
-                      <label for="title">Titulo</label>
-                      <input type="text"
-                        class="form-control" name="title" id="title" aria-describedby="helpId" placeholder="Titulo">
+                        <label for="title">Titulo</label>
+                        <input type="text"
+                          class="form-control" name="title" id="title" aria-describedby="helpId" placeholder="Titulo del evento">
+                      </div>
+
+                    <div class="form-group">
+                    <label for="product">Producto</label>
+                    <select name="product_id" id="product_id">
+                        @foreach ($products as $product)
+                            <option value="{{ $product->id }}">{{ $product->name }}</option>
+                        @endforeach
+                    </select>
                     </div>
 
                     <div class="form-group">
@@ -129,6 +138,7 @@
             console.log("ID del Evento:", info.event.id);
             console.log(info);
             console.log(info.event.title);
+            console.log("ID del producto:",info.event.extendedProps.product_id);
             console.log(info.event.units);
             console.log(info.event.price);
             console.log(info.event.start);
@@ -140,7 +150,7 @@
             $('#eventId').val(info.event.id);
 
             $('#title').val(info.event.title);
-
+            $('#product_id').val(info.event.extendedProps.product_id);
             $('#units').val(info.event.extendedProps.units);
             $('#price').val(info.event.extendedProps.price);
 
@@ -193,6 +203,7 @@
         newEvent = {
             id: $('#eventId').val(),
             title: $('#title').val(),
+            product_id: $('#product_id').val(),
             units: $('#units').val(),
             price: $('#price').val(),
             start: $('#start').val(),

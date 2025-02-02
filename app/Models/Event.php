@@ -11,7 +11,7 @@ class Event extends Model
 
 
 
-    protected $fillable = ['title','units','price', 'start', 'end'];
+    protected $fillable = ['title','product_id','units','price', 'start', 'end'];
 
     public function Products()
     {

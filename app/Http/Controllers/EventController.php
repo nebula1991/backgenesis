@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Http\JsonResponse;
@@ -15,7 +16,8 @@ class EventController extends Controller
      */
     public function index(Request $request)
     {
-        return view('admin.events.index');
+        $products = Product::all();
+        return view('admin.events.index', compact('products'));
     }
 
 
@@ -31,9 +33,11 @@ class EventController extends Controller
     public function store(Request $request)
     {   
    
+
             // Validamos los datos
             $request->validate([
-                'title' => 'required|string|max:255',
+                'title' => 'required|max:255',
+                'product_id' => 'required|exists:products,id',
                 'units' => 'required',
                 'price' => 'required',
                 'start' => 'required|date',
@@ -47,6 +51,7 @@ class EventController extends Controller
             // Guardamos el evento
             $evento = Event::create([
                 'title' => $request->title,
+                'product_id' => $request->product_id,
                 'units' => $request->units,
                 'price' => $request->price,
                 'start' => $startDate,
@@ -86,7 +91,8 @@ class EventController extends Controller
         $event = Event::findOrFail($id);
 
         $validatedData = $request->validate([
-            'title' => 'required|string|max:255',
+            'title' => 'required|max:255',
+            'product_id' => 'required|integer',
             'units' => 'required',
             'price' => 'required',
             'start' => 'required|date',
@@ -100,6 +106,7 @@ class EventController extends Controller
              // Actualizar el evento
              $event->update([
                 'title' => $request->title,
+                'product_id' => $request->product_id,
                 'units' => $request->units,
                 'price' => $request->price,
                 'start' => $startDate,
