@@ -24,7 +24,7 @@
                 <div class="small-box bg-success text-center">
                     <div class="inner">
                         <h5>
-                            Total de Categorias: {{ \App\Models\Category::count() }}
+                            Total Categorias: {{ \App\Models\Category::count() }}
                         </h5>
                     </div>
                     <div class="icon">
@@ -37,7 +37,7 @@
                 <div class="small-box bg-info text-center">
                     <div class="inner">
                         <h5>
-                        Total de Subcategorias: {{ \App\Models\Subcategory::count() }}
+                        Total Subcategorias: {{ \App\Models\Subcategory::count() }}
                         </h5>
                     </div>
                     <div class="icon">
@@ -51,7 +51,7 @@
                 <div class="small-box bg-warning text-center">
                     <div class="inner">
                         <h5>
-                            Total de productos: {{ \App\Models\Product::count() }}
+                            Total productos: {{ \App\Models\Product::count() }}
                         </h5>
                     </div>
                     <div class="icon">

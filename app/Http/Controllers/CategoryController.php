@@ -30,7 +30,7 @@ class CategoryController extends Controller
             });
         }
 
-        $categories = $query->paginate();
+        $categories = $query->paginate(10);
         return view('admin.category.index', [
             'categories' => $categories,
         ])->with('i', (request()->input('page', 1) - 1) * $categories->perPage());

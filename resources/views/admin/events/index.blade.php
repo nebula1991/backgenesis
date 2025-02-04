@@ -47,7 +47,7 @@
                     <label for="product">Producto</label>
                     <select name="product_id" id="product_id">
                         @foreach ($products as $product)
-                            <option value="{{ $product->id }}">{{ $product->name }}</option>
+                            <option value="{{ $product->id }}">{{ $product->name }} | {{ $product->description }}</option>
                         @endforeach
                     </select>
                     </div>
@@ -55,24 +55,28 @@
                     <div class="form-group">
                       <label for="units">units</label>
                       <input type="number"
-                        class="form-control" name="units" id="units" aria-describedby="helpId" placeholder="unidades">
+                        class="form-control" name="units" id="units" min="1" required placeholder="unidades">
                     </div>
-
-                    <div class="form-group">
-                      <label for="price">Precio</label>
-                      <input type="number"
-                        class="form-control" name="price" id="price" aria-describedby="helpId" placeholder="precio">
-                    </div>
-
+       
 
                       <div class="form-group">
                         <label for="start">Fecha Inicio</label>
                         <input type="date" class="form-control" name="start" id="start" aria-describedby="helpId" placeholder="">
                       </div>
+
+                      <div class="form-group">
+                        <label for="startTime">Hora Inicio</label>
+                        <input type="time" class="form-control" name="startTime" id="startTime" aria-describedby="helpId" placeholder="">
+                      </div>
                       
                       <div class="form-group">
                         <label for="end">Fecha Fin</label>
                         <input type="date" class="form-control" name="end" id="end" aria-describedby="helpId" placeholder="">
+                      </div>
+
+                      <div class="form-group">
+                        <label for="endTime">Hora Fin</label>
+                        <input type="time" class="form-control" name="endTime" id="endTime" aria-describedby="helpId" placeholder="">
                       </div>
                 </form>
 
@@ -103,7 +107,7 @@
 
 <script>
 
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', async function() {
 
 
     let formulario = document.getElementById("formEvent");
@@ -140,7 +144,6 @@
             console.log(info.event.title);
             console.log("ID del producto:",info.event.extendedProps.product_id);
             console.log(info.event.units);
-            console.log(info.event.price);
             console.log(info.event.start);
             console.log(info.event.end);
             console.log(info.event.extendedProps.units);
@@ -152,7 +155,6 @@
             $('#title').val(info.event.title);
             $('#product_id').val(info.event.extendedProps.product_id);
             $('#units').val(info.event.extendedProps.units);
-            $('#price').val(info.event.extendedProps.price);
 
             
             // Obtener la fecha en formato local (sin ajustes de zona horaria)
@@ -161,7 +163,13 @@
 
             $('#start').val(startDate);
             $('#end').val(endDate);
-          
+            
+            let startTime = info.event.start ? info.event.start.toLocaleTimeString('en-US', {hour12:false}) : null; // Formato HH:MM:SS
+            let endTime = info.event.end ? info.event.end.toLocaleTimeString('en-US', {hour12:false}) : null;
+
+            $('#startTime').val(startTime ? startTime.slice(0,5) : '');
+            $('#endTime').val(endTime ? endTime.slice(0,5) : '');
+
             $('#btnSave').hide(); // Ocultar botón de guardar
             $('#btnEdit, #btnDestroy').show(); // Mostrar botones de modificar y eliminar
             $("#event").modal("show"); // Mostrar modal
@@ -171,26 +179,27 @@
     });
     calendar.render();
 
-    $('#btnSave').click(function(){
+    $('#btnSave').click(async () => {
 
-        let ObjEvento = recolectarDatosGUI("POST");
+        let ObjEvento = await recolectarDatosGUI("POST");
+        console.log("Creando evento:", ObjEvento);
         Enviarinformacion('',ObjEvento);
   
 
     });
 
-    $('#btnEdit').click(function(){
+    $('#btnEdit').click(async () => {
         let idEvento = $('#eventId').val(); 
-        let ObjEvento = recolectarDatosGUI("PATCH");
+        let ObjEvento = await recolectarDatosGUI("PATCH");
         console.log("Actualizando evento con ID:", idEvento);
         Enviarinformacion(idEvento,ObjEvento);
     
 
     });
 
-    $('#btnDestroy').click(function(){
+    $('#btnDestroy').click(async () =>{
         
-        let ObjEvento = recolectarDatosGUI("DELETE");
+        let ObjEvento =  await recolectarDatosGUI("DELETE");
 
         Enviarinformacion('/'+$('#eventId').val(),ObjEvento);
 
@@ -199,18 +208,51 @@
 
 
 
-    function recolectarDatosGUI(method){
+    async function recolectarDatosGUI(method){
+
+        let units = $('#units').val();
+        let productId = $('#product_id').val();
+        let price = 0;
+        let startDate = $('#start').val();
+        let endDate = $('#end').val();
+
+        if(units && productId && startDate){
+        try{
+            const response = await $.ajax({
+                url: "{{ url('admin/events/precio') }}/"+productId + "?units=" + units + "&date=" + startDate,
+                type: 'GET',
+            });
+
+            price = response.price;
+            console.log('Precio total:', price);
+        } catch (error){
+                // async: false,
+                // success: function(response){
+                //     price = response.price;
+                //     console.log('Precio total:', price);
+                // },
+                
+                    console.error("Error al obtener el precio del producto:", error);
+                    alert("Hubo un error al obtener el precio del producto.");
+                    price = 0;   
+            }
+        }
+
+
         newEvent = {
             id: $('#eventId').val(),
             title: $('#title').val(),
-            product_id: $('#product_id').val(),
-            units: $('#units').val(),
-            price: $('#price').val(),
-            start: $('#start').val(),
-            end: $('#end').val(),
+            product_id: productId,
+            units: units,
+            price: price,
+            start: startDate,
+            end: endDate,
+            startTime: $('#startTime').val(),
+            endTime: $('#endTime').val(),
             '_token': $("meta[name='csrf-token']").attr("content"),
             'method': method,
         }
+        console.log("Datos del evento:", newEvent);
         return(newEvent);
     }
 
@@ -220,7 +262,7 @@
             let urlFinal = accion ? `${urlBase}/${accion.replace(/^\/+/, '')}` : urlBase;
             let method = ObjEvento.method; // Usar el método definido en recolectarDatosGUI
             
-            console.log("Enviando a:", urlFinal, "Método:", method);
+            console.log("Enviando a:", urlFinal, "Método:", method,  "Datos:", ObjEvento);
 
             $.ajax(
                 {
@@ -234,7 +276,8 @@
 
                     },   
                     error: function(xhr, status, error) {
-                    console.error("Error:", error);
+                    console.error("Error:", status, error);
+                    console.log("Respuesta del servidor:", xhr.responseText);  // Log server response
                     alert("Hubo un error al procesar la solicitud.");
                 }
 

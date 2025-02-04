@@ -13,11 +13,16 @@ use App\Http\Controllers\SubcategoryController;
 
 
 
-Route::get('/home', function(){return view('home');})->middleware('auth');
+
 
 Route::get('/', function () {
     return view('auth.login');
 });
+
+
+
+
+
 //Rutas de autenticación
 Auth::routes();
 
@@ -26,6 +31,8 @@ Auth::routes();
 
 
 Route::group(['middleware'=> ['auth']],function(){
+
+Route::get('/home', function(){return view('home');});
 
 
 Route::resource('categories', App\Http\Controllers\CategoryController::class);
@@ -43,6 +50,7 @@ Route::patch('admin/categories/{category}/update', [CategoryController::class, '
 Route::delete('admin/categories/{category}/delete', [CategoryController::class, 'destroy'])->name('admin.category.delete');
 
 //Rutas de calendario
+Route::get('admin/events/precio/{product_id}', [EventController::class, 'getPrecioProduct']);
 Route::get('admin/events', [EventController::class, 'index'])->name('admin.events.index');
 Route::get('admin/events/show', [EventController::class, 'show'])->name('admin.events.show');
 Route::post('admin/events', [EventController::class, 'store'])->name('admin.events.store');
@@ -60,6 +68,8 @@ Route::delete('admin/subcategories/{subcategory}/delete', [SubcategoryController
 
 
 //Rutas de los productos
+
+Route::get('admin/products', [ProductController::class, 'desactivarProductoSinStock']);
 Route::get('admin/products', [ProductController::class, 'index'])->name('admin.products.index');
 Route::get('admin/products/pdf', [ProductController::class, 'pdf'])->name('admin.products.pdf');
 Route::get('admin/products/excel', [ProductController::class, 'excel'])->name('admin.products.excel');
@@ -68,9 +78,6 @@ Route::post('admin/products/store', [ProductController::class, 'store'])->name('
 Route::get('admin/products/{product}/edit', [ProductController::class, 'edit'])->name('admin.products.edit');
 Route::patch('admin/products/{product}/update', [ProductController::class, 'update'])->name('admin.products.update');
 Route::delete('admin/products/{product}/delete', [ProductController::class, 'destroy'])->name('admin.products.delete');
-
-
-
 
 });
 

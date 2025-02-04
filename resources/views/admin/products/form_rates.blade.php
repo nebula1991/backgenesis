@@ -18,7 +18,7 @@
         <div class="col-md-6">
             <label for="price_rate">Precio</label>
             <input class="form-control @error('price_rate.' . $index) is-invalid @enderror" placeholder="Precio"
-                name="price_rate[{{ $index }}]" type="number" min="0"
+                name="price_rate[{{ $index }}]" type="number" step="0.01" min="0"
                 value="{{ old('price_rate.' . $index, $rateProduct->price_rate) }}" id="price_rate">
             @error('price_rate.' . $index)
             <div class="invalid-feedback">{{ $message }}</div>
@@ -62,7 +62,7 @@
 
         <div class="col-md-6">
             <label for="price_rate_0">Precio</label>
-            <input type="number" class="form-control" name="price_rate[0]" placeholder="Nuevo Precio">
+            <input type="number" class="form-control" name="price_rate[0]" placeholder="Nuevo Precio" step="0.01" min="0">
         </div>
 
         <div class="col-md-6">

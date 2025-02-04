@@ -13,16 +13,17 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * Initialize the query builder for the model.
-     * Check if a search term is provided in the request.
-     * Add conditions to filter results based on the search term.
-     * Retrieve paginated results for the model.
-     * Return the index view with the retrieved results.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    function desactivarProductoSinStock()
+    {
+        $products = Product::where('stock', 0)->get();
+        foreach ($products as $product) {
+            $product->status = 'inactive';
+            $product->save();
+        }
+        
+        return redirect()->route('admin.products.index')->with('success', 'Productos desactivados correctamente');
+    }
+
     public function index(Request $request)
     {
         $query = Product::query();
@@ -36,7 +37,7 @@ class ProductController extends Controller
             });
         }
         // Obtener los productos con las relaciones de categoria y subcategoria
-        $products = $query->with(['category', 'subcategory', 'rateProducts'])->paginate(); // Cargar las relaciones de category y subcategory
+        $products = $query->with(['category', 'subcategory', 'rateProducts'])->paginate(10); // Cargar las relaciones de category y subcategory
 
         // Retornar la vista con los productos cargados
         return view('admin.products.index', [
@@ -88,6 +89,7 @@ class ProductController extends Controller
             'name' => 'required|min:5|max:30',
             'description' => 'required|min:5',
             'price' => 'required|numeric|min:0',
+            'stock' => 'required|integer|min:0',
             'image' => 'nullable|image|mimes:jpeg,jpg,png|max:10240',
             'category_id' => 'required|integer',
             'subcategory_id' => 'nullable|exists:subcategories,id',
@@ -171,7 +173,8 @@ class ProductController extends Controller
 
             'name' => 'required|min:5|max:30',
             'description' => 'required|min:5',
-            'price' => 'required|numeric|min:0',
+            'price' => 'required|min:0',
+            'stock' => 'required|integer|min:0',
             'image' => 'nullable|image|mimes:jpeg,jpg,png|max:10240',
             'category_id' => 'required|integer',
             'subcategory_id' => 'nullable|exists:subcategories,id',

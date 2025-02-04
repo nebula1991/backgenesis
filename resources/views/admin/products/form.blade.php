@@ -16,9 +16,17 @@
 </div>
 <div class="col-md-6">
     <label for="price">Precio</label>
-    <input class="form-control @error('price') is-invalid @enderror" placeholder="precio" name="price" type="number"
-        min="0" value="{{ old('price',@$product->price) }}" id="price">
+    <input type="number" class="form-control @error('price') is-invalid @enderror" placeholder="Precio" name="price"
+        step="0.01" min="0"  value="{{ old('price',@$product->price) }}" id="price">
     @error('price')
+    <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
+<div class="col-md-6">
+    <label for="stock">Stock</label>
+    <input type="number" class="form-control @error('stock') is-invalid @enderror" placeholder="Stock" name="stock"
+        min="0" min="0" value="{{ old('stock',@$product->stock) }}" id="stock">
+    @error('stock')
     <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>

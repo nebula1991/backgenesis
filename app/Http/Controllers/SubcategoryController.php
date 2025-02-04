@@ -8,9 +8,23 @@ use Illuminate\Http\Request;
 
 class SubcategoryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {   
+        $query = Subcategory::query();
+
+
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where(function ($q) use ($search) {
+                foreach (Category::$searchable as $attribute) {
+                    $q->orWhere($attribute, 'like', '%' . $search . '%');
+                }
+            });
+        }
+        
         $subcategories = Subcategory::with('categories')->get();
+
+        $subcategories = $query->paginate(10);
         return view('admin.subcategory.index', compact('subcategories'));
         
     }

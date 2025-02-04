@@ -34,10 +34,10 @@ class Product extends Model
     protected $perPage = 20;
 
     // Attributes that should be mass-assignable
-    protected $fillable = ['name','description','price','image','category_id','subcategory_id'];
+    protected $fillable = ['name','description','price','stock','image','category_id','subcategory_id'];
     
     // Attributes that are searchable
-    static $searchable = ['name','description','price','image','category_id','subcategory_id'];
+    static $searchable = ['name','description','price','stock','image','category_id','subcategory_id'];
     
     
     /**

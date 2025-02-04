@@ -6,7 +6,7 @@
 
   @section('content')
   <!-- Contenido -->
-  
+
 
   <!-- Main Content -->
   <main class="container my-5">

@@ -63,6 +63,7 @@
                                             <th>Nombre</th>
                                             <th>Descripción</th>
                                             <th>Precio</th>
+                                            <th>Stock</th>
                                             <th>Imagen</th>
                                             <th>Categoria </th>
                                             <th>Subcategoria </th>
@@ -77,6 +78,7 @@
                                             <td>{{ $product->name }}</td>
                                             <td>{{ $product->description }}</td>
                                             <td style="width: 80px;">{{number_format($product->price,2) }} €</td>
+                                            <td style="width: 80px;" class="@if  ($product->stock == 0)text-danger @else text-success  @endif">{{ $product->stock }}</td>
                                             <td>
                                                 @if($product->image)
                                                 <img src="{{ asset($product->image) }}" alt="Imagen del Producto"
@@ -124,7 +126,10 @@
                     </div>
                 </div>
             </div>
-            {!! $products->appends(request()->query())->links() !!}
+          
+            {{$products->links('pagination::bootstrap-4')}}
+         
+           
         </div>
 
 </div>

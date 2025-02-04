@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name'); // Nombre del producto
             $table->text('description')->nullable(); // Descripción del producto
             $table->decimal('price',10,2);
+            $table->integer('stock')->default(0); // Stock del producto
             $table->string('image')->nullable(); // Ruta de la foto
             $table->foreignId('category_id')->constrained()->onDelete('cascade'); // Relación con categorías
             $table->foreignId('subcategory_id')->nullable()->constrained()->onDelete('set null'); // Relación con subcategorías
