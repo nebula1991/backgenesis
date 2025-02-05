@@ -36,14 +36,6 @@ class CategoryController extends Controller
         ])->with('i', (request()->input('page', 1) - 1) * $categories->perPage());
     }
 
-    public function pdf()
-    {
-        $categories=Category::all();
-        $pdf = Pdf::loadView('admin.category.pdf', compact('categories'));
-        return $pdf->stream();
-    
-    }
-
 
 
     public function create()
@@ -76,7 +68,7 @@ class CategoryController extends Controller
         $category = Category::create($request->all());
 
         return redirect()->route('admin.category.index')
-            ->with('success', 'Categoria creada correctamente.');
+            ->with('success', 'Categoria creada con éxito.');
     }
 
     /**
@@ -134,7 +126,7 @@ class CategoryController extends Controller
         $category->update($request->all());
 
         
-        return redirect()->route('admin.category.index')->with('success', 'Category updated successfully');
+        return redirect()->route('admin.category.index')->with('success', 'Categoria actualizada con éxito.');
     }
 
     /**
@@ -148,7 +140,7 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         Category::find($id)->delete();
-        return redirect()->route('admin.category.index')->with('destroy', 'Categoria eliminada con exito');
+        return redirect()->route('admin.category.index')->with('success', 'Categoria eliminada con exito');
     }
 
     /**

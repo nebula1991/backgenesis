@@ -9,16 +9,7 @@
     </div>
 </div>
     
-        @if(session('success'))
-        <div class="alert alert-success mt-2">
-            {{session('success')}}
-        </div>
-        @endif
-        @if(session('destroy'))
-        <div class="alert alert-danger mt-2">
-            {{session('destroy')}}
-        </div>
-        @endif
+      
 @stop
 
 @section('content')
@@ -56,8 +47,8 @@
                             </form>
 
                             <div class="table-responsive col-12 mt-3">
-                                <table class="table table-striped table-hover">
-                                    <thead class="thead">
+                                <table class="table table-striped table-hover text-uppercase">
+                                    <thead class="thead text-center thead-dark">
                                         <tr>
                                             <th>Num</th>
                                             <th>Nombre</th>
@@ -70,15 +61,15 @@
                                             <th>Acción</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody class="text-center">
                                         @foreach ($products as $product)
-                                        <tr>
+                                        <tr class="text-center">
                                             <td>{{ ++$i }}</td>
 
                                             <td>{{ $product->name }}</td>
                                             <td>{{ $product->description }}</td>
                                             <td style="width: 80px;">{{number_format($product->price,2) }} €</td>
-                                            <td style="width: 80px;" class="@if  ($product->stock == 0)text-danger @else text-success  @endif">{{ $product->stock }}</td>
+                                            <td style="width: 80px;" class="@if  ($product->stock == 0)table-danger @elseif ($product->stock <=10) table-warning @else table-success  @endif text-center">{{ $product->stock }}</td>
                                             <td>
                                                 @if($product->image)
                                                 <img src="{{ asset($product->image) }}" alt="Imagen del Producto"
@@ -101,13 +92,13 @@
 
                                             <td style="width: 150px;">
                                                 <div class="d-flex">
-                                                    <form action="{{ route('products.destroy',$product->id) }}"
+                                                    <form action="{{ route('admin.products.destroy',$product->id) }}"
                                                         method="POST">
                                                         <a class="btn btn-sm btn-primary me-2 "
-                                                            href="{{ route('products.show',$product->id) }}"><i
+                                                            href="{{ route('admin.products.show',$product->id) }}"><i
                                                                 class="fa fa-fw fa-eye"></i> </a>
                                                         <a class="btn btn-sm btn-success me-2"
-                                                            href="{{ route('products.edit',$product->id) }}"><i
+                                                            href="{{ route('admin.products.edit',$product->id) }}"><i
                                                                 class="fa fa-fw fa-edit"></i> </a>
                                                         @csrf
                                                         @method('DELETE')
@@ -134,3 +125,20 @@
 
 </div>
 @endsection
+
+
+@section('js')
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        @if(session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Éxito',
+                text: "{{ session('success') }}",
+                confirmButtonText: 'OK'
+            });
+        @endif
+    });
+</script>
+@stop
+

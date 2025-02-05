@@ -53,7 +53,7 @@ class ProductController extends Controller
 
     public function excel()
     {
-        return Excel::download(new ProductsExport, 'products.xlsx');
+        return Excel::download(new ProductsExport, 'admin.products.xlsx');
     }
     public function create()
     {
@@ -114,8 +114,8 @@ class ProductController extends Controller
         //
 
         $product = Product::create($request->all());
-        // $product = Product::create($validatedData);
-
+        
+  
 
         return redirect()->route('admin.products.index')
             ->with('success', 'Producto creado correctamente.');
@@ -270,7 +270,7 @@ class ProductController extends Controller
     public function destroy($id)
     {
         Product::find($id)->delete();
-        return redirect()->route('admin.products.index')->with('destroy', 'Producto eliminado correctamente');
+        return redirect()->route('admin.products.index')->with('success', 'Producto eliminado correctamente');
     }
 
     /**

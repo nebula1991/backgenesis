@@ -9,6 +9,13 @@
         <h1>Administrador</h1>
     </div>
 </div>
+
+@if(session('warning'))
+    <div class="alert alert-warning">
+        {{ session('warning') }}
+    </div>
+@endif
+
 @stop
 
 @section('content')
@@ -61,6 +68,25 @@
                 </div>
             </div>
 
+            <div class="col-lg-4 col-6">
+                <div class="small-box bg-dark text-center">
+                    <div class="inner mt-4">
+                        <div class="icon">
+                            <i class="fas fa-user-plus text-teal"></i>
+                        </div>
+                
+                        <h5>
+                            Usuarios registrados: 
+                        </h5>
+                        <h3>{{ \App\Models\User::count() }} </h3>
+                   
+                    </div>
+         
+                    <a href="#" class="small-box-footer">Más info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+
   
         </div>
 
@@ -70,6 +96,8 @@
 
 
 @stop
+
+
 
 
 

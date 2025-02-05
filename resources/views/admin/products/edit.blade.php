@@ -19,7 +19,8 @@
 
                 <div class="card">
                     <div class="card-header">
-                        Actualizar Producto
+                            <a class="btn btn-primary float-end btn-sm" href="{{ route('admin.category.index') }}"> Atras </a>
+             
                     </div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('products.update', $product->id) }}"  role="form" enctype="multipart/form-data" class="row g-3">
@@ -29,6 +30,7 @@
                             @include('admin.products.form')
                             <h5>Temporadas</h5>
                            
+                    
                             @include('admin.products.form_rates')
                       
                     

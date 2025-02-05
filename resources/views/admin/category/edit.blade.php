@@ -5,7 +5,7 @@
 @section('content_header')
 <div class="row">
     <div class="col-12 text-center">
-        <h1 class="text-uppercase">Categorias</h1>
+        <h1 class="text-uppercase">Actualizar Categorias</h1>
     </div>
 </div>
 @stop
@@ -18,7 +18,7 @@
 
                 <div class="card">
                     <div class="card-header">
-                        Actualizar Categoria
+                            <a class="btn btn-primary float-end btn-sm" href="{{ route('admin.category.index') }}"> Atras </a>
                     </div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('admin.category.update', $category->id) }}" class="row g-3">

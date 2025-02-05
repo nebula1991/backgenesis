@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
 @section('content')
     <section class="container-fluid py-4">
@@ -7,7 +7,6 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        Subcategoria
                             <a class="btn btn-primary float-end btn-sm" href="{{ route('admin.subcategory.index') }}"> Back </a>
                     </div>
                     <div class="card-body">
@@ -22,8 +21,8 @@
                             {{ $subcategory->description }}
                         </div>
                         <div class="mb-3">
-                            <label class="form-label"><strong>Categoría:</strong></label>
-                            <p>{{ $subcategory->category->name }}</p> <!-- Aquí obtenemos el nombre de la categoría asociada -->
+                            <label class="form-label"><strong>Categoría Asociada:</strong></label>
+                            {{ $subcategory->categories->name }} <!-- Aquí obtenemos el nombre de la categoría asociada -->
                         </div>
                         </div>
                     </div>

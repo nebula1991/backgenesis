@@ -9,17 +9,6 @@
     </div>
 </div>
     
-
-    @if(session('success'))
-    <div class="alert alert-success mt-2">
-        {{session('success')}}
-    </div>
-    @endif
-    @if(session('destroy'))
-    <div class="alert alert-danger mt-2">
-        {{session('destroy')}}
-    </div>
-    @endif
 @stop
 
 @section('content')
@@ -31,7 +20,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <a href="{{route('subcategories.create')}}" class="btn btn-outline-info text-uppercase float-end btn-sm"><i class="fa fa-solid fa-plus"></i>  Nueva Subcategoría</a>
+                                <a href="{{route('admin.subcategory.create')}}" class="btn btn-outline-info text-uppercase float-end btn-sm"><i class="fa fa-solid fa-plus"></i>  Nueva Subcategoría</a>
                             </div>
                             <div class="card-body">
                                 <!-- Search and Filter Form -->
@@ -50,9 +39,9 @@
                                 @else
 
                              
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-hover">
-                                        <thead class="thead">
+                                <div class="table-responsive col-12 mt-3">
+                                    <table class="table table-striped table-hover text-uppercase">
+                                        <thead class="thead text-center thead-dark">
                                             <tr>
                                                 <th>Num</th>
                                                 <th>Nombre</th>
@@ -71,7 +60,8 @@
                                                     <td>{{ $subcategory->description }}</td>
                                                     <td>{{ $subcategory->categories->name }}</td>
                                                     <td>
-                                                        <form action="{{ route('subcategories.destroy', $subcategory->id) }}" method="POST">
+                                                        <form action="{{ route('admin.subcategory.destroy', $subcategory->id) }}" method="POST">
+                                                            <a class="btn btn-info btn-sm" href="{{ route('admin.subcategory.show',$subcategory->id) }}"><i class="fa fa-fw fa-eye"></i> </a>
                                                             <a class="btn btn-sm btn-warning" href="{{ route('admin.subcategory.edit', $subcategory->id) }}"><i class="fa fa-fw fa-edit"></i></a>
                                                             @csrf
                                                             @method('DELETE')
@@ -93,4 +83,19 @@
             {{$subcategories->links('pagination::bootstrap-4')}}
         </div>
     </div>
+@stop
+
+@section('js')
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        @if(session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Éxito',
+                text: "{{ session('success') }}",
+                confirmButtonText: 'OK'
+            });
+        @endif
+    });
+</script>
 @stop

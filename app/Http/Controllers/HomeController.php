@@ -19,24 +19,17 @@ class HomeController extends Controller
          $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index()
     {
         $categories = Category::all();
         $products = Product::all();
         
-          // Si el calendario tiene eventos, los pasas a la vista
-            $events = Event::all(); // Asumiendo que tienes un modelo Event
-    
+ 
         
-        return view('index',[
+        return view('home',[
             'categories' => $categories,
             'products' => $products,
-            'events' => $events
+       
         ]);
     }
 
@@ -52,7 +45,7 @@ class HomeController extends Controller
         $categories = Category::all();
         $category =  Category::where('name', '=', $category)->first();
         $products = Product::where('category_id', '=', $category->id)->get();
-        return view('index',[
+        return view('home',[
             'categories' => $categories,
             'products' => $products
         ]);
