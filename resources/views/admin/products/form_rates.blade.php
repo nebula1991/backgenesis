@@ -45,9 +45,12 @@
             @enderror
         </div>
 
-        <div class="col-md-6 mt-2">
-            <button type="button" class="btn btn-danger" onclick="eliminar(this)">Eliminar</button>
+        <div class="col-md-6">
+            <div class="d-flex justify-content-end mt-2">
+                <button type="button" class="btn btn-danger" onclick="eliminar(this)">Eliminar</button>
+            </div>
         </div>
+      
     </div>
     @endforeach
     @else
@@ -62,7 +65,8 @@
 
         <div class="col-md-6">
             <label for="price_rate_0">Precio</label>
-            <input type="number" class="form-control" name="price_rate[0]" placeholder="Nuevo Precio" step="0.01" min="0">
+            <input type="number" class="form-control" name="price_rate[0]" placeholder="Nuevo Precio" step="0.01"
+                min="0">
         </div>
 
         <div class="col-md-6">
@@ -75,9 +79,10 @@
             <input type="date" class="form-control" name="end_date[0]" placeholder="Nueva Fecha Final">
         </div>
 
-        <div class="col-md-6 mt-2">
-            <button type="button" class="btn btn-danger" onclick="eliminar(this)">Eliminar</button>
+        <div class="d-flex justify-content-end mt-2">
+                <button type="button" class="btn btn-danger" onclick="eliminar(this)">Eliminar</button>
         </div>
+     
     </div>
     @endif
 </div>
@@ -87,15 +92,16 @@
 
 
 <!-- Botón para agregar más temporadas -->
-<div class="col-12 mt-2">
-    <button type="button" class="btn btn-warning" onclick="clonar()">Crear</button>
+<div class="row">
+    <div class="col-2 mt-2">
+        <button type="button" class="btn btn-warning" onclick="clonar()">Crear</button>
+    </div>
 </div>
-
 <!-- Campo oculto para almacenar los IDs de las temporadas eliminadas -->
 <input type="hidden" name="deleted_seasons" id="deletedSeasons" value="">
 
 <script>
-   let seasonIndex = {{ $product->rateProducts->count() }}; // Índice inicial basado en las temporadas existentes
+    let seasonIndex = {{ $product->rateProducts->count() }}; // Índice inicial basado en las temporadas existentes
 
    function clonar() {
     // Seleccionar la última temporada en el DOM

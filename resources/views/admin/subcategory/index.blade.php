@@ -20,7 +20,38 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <a href="{{route('admin.subcategory.create')}}" class="btn btn-outline-info text-uppercase float-end btn-sm"><i class="fa fa-solid fa-plus"></i>  Nueva Subcategoría</a>
+                                {{-- <a href="{{route('admin.subcategory.create')}}" class="btn btn-outline-info text-uppercase float-end btn-sm"><i class="fa fa-solid fa-plus"></i>  Nueva Subcategoría</a> --}}
+                                <button type="button" class="btn btn-outline-primary text-uppercase" data-toggle="modal" data-target="#crearSubcategoria">
+                                    <i class="fa fa-solid fa-plus"></i> Nueva subcategoria
+                                  </button>
+                                  
+                                  {{-- Modal subcategorias --}}
+                                  <div class="modal fade" id="crearSubcategoria" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Crear Subcategoria</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method="POST" action="{{route('admin.subcategory.store')}}"    class="row g-3">
+                                                @csrf
+                                                @include('admin.subcategory.form')
+                                                
+                                                </div>
+                                                <div class="modal-footer">
+                                            
+                                                <button type="submit" class="btn btn-primary">Guardar</button>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                </div>
+                                                
+                                        </form>
+                                    </div>
+                                    </div>
+                                </div>
+                           
                             </div>
                             <div class="card-body">
                                 <!-- Search and Filter Form -->

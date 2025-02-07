@@ -10,6 +10,8 @@ class SubcategoryController extends Controller
 {
     public function index(Request $request)
     {   
+
+       
         $query = Subcategory::query();
 
 
@@ -21,11 +23,11 @@ class SubcategoryController extends Controller
                 }
             });
         }
-        
+        $categories = Category::all(); // Obtener todas las categorías
         $subcategories = Subcategory::with('categories')->get();
 
         $subcategories = $query->paginate(10);
-        return view('admin.subcategory.index', compact('subcategories'));
+        return view('admin.subcategory.index', compact('subcategories', 'categories'));
         
     }
 

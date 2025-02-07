@@ -30,8 +30,15 @@ class SubcategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Subcategory $subcategory)
+    public function show($id)
     {
+        $subcategory = Subcategory::find($id);
+
+        if (!$subcategory) {
+            return response()->json([
+                'message' => 'Subcategoria no encontrada'
+            ], 404);
+        }
         return response()->json($subcategory);
     }
 

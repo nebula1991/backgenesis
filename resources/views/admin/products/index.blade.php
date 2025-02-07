@@ -24,8 +24,10 @@
                         <div class="card-header">
 
                             <a href="{{ route('admin.products.create') }}"
-                                class="btn btn-outline-info text-uppercase float-end btn-sm"><i
+                                class="btn btn-outline-primary text-uppercase float-end btn-sm"><i
                                     class="fa fa-solid fa-plus"></i> Crear Producto</a>
+
+    
                             <a href="{{route('admin.products.pdf')}}" class="btn btn-outline-danger btn-sm"
                                 target="_blank">
                                 PDF</a>
@@ -97,7 +99,7 @@
                                                         <a class="btn btn-sm btn-primary me-2 "
                                                             href="{{ route('admin.products.show',$product->id) }}"><i
                                                                 class="fa fa-fw fa-eye"></i> </a>
-                                                        <a class="btn btn-sm btn-success me-2"
+                                                        <a class="btn btn-sm btn-warning me-2"
                                                             href="{{ route('admin.products.edit',$product->id) }}"><i
                                                                 class="fa fa-fw fa-edit"></i> </a>
                                                         @csrf

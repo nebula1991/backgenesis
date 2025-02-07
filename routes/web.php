@@ -1,19 +1,22 @@
 <?php
 
 
+use Inertia\Inertia;
+use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\MostrarProductosController;
 
-
-
 //Ruta de la página principal
-Route::get('/', function () {
+Route::get('/login', function () {
     return view('auth.login');
 });
 
@@ -25,11 +28,13 @@ Auth::routes();
 // Auth::routes(['register'=>false,'reset'=>false,'verify'=>false]);
 
 
-Route::get('home', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::middleware(['auth','admin'])->prefix('admin')->name('admin.')->group(function(){
 
-
+    Route::resource('users', UserController::class)->names('users');
+    Route::resource('roles', RoleController::class)->names('roles');
+    Route::resource('permissions', PermissionController::class)->names('permissions');
 
     Route::resource('categories', CategoryController::class)->names('category');
 
@@ -44,7 +49,7 @@ Route::middleware(['auth','admin'])->prefix('admin')->name('admin.')->group(func
 
 
 
-// //Rutas de administrador de categorias
+//Rutas de administrador de categorias
 // Route::get('admin/categories', [CategoryController::class, 'index'])->name('admin.category.index');
 // Route::get('admin/categories/pdf', [CategoryController::class, 'pdf'])->name('admin.category.pdf');
 // Route::get('admin/categories/create', [CategoryController::class, 'create'])->name('admin.category.create');
@@ -81,6 +86,5 @@ Route::delete('admin/events/{id}', [EventController::class, 'destroy'])->name('a
 // Route::get('admin/products/{product}/edit', [ProductController::class, 'edit'])->name('admin.products.edit');
 // Route::patch('admin/products/{product}/update', [ProductController::class, 'update'])->name('admin.products.update');
 // Route::delete('admin/products/{product}/delete', [ProductController::class, 'destroy'])->name('admin.products.delete');
-
 
 

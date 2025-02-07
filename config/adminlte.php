@@ -152,7 +152,7 @@ return [
     |
     */
 
-    'layout_topnav' => true,
+    'layout_topnav' => false,
     'layout_boxed' => null,
     'layout_fixed_sidebar' => true,
     'layout_fixed_navbar' => null,
@@ -215,13 +215,13 @@ return [
     */
 
     'sidebar_mini' => 'lg',
-    'sidebar_collapse' => false,
+    'sidebar_collapse' => true,
     'sidebar_collapse_auto_size' => false,
-    'sidebar_collapse_remember' => false,
+    'sidebar_collapse_remember' => true,
     'sidebar_collapse_remember_no_transition' => true,
     'sidebar_scrollbar_theme' => 'os-theme-light',
-    'sidebar_scrollbar_auto_hide' => 'l',
-    'sidebar_nav_accordion' => true,
+    'sidebar_scrollbar_auto_hide' => 'n',
+    'sidebar_nav_accordion' => false,
     'sidebar_nav_animation_speed' => 300,
 
     /*
@@ -257,7 +257,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'home',
+    'dashboard_url' => '/',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -321,8 +321,23 @@ return [
             'can' => 'manage-blog',
         ],
 
-        ['header' => 'account_settings'],
-  
+        ['header' => 'GESTIÓN DE USUARIOS'],
+        [
+            'text' => 'USUARIOS',
+            'url' => 'admin/users',
+         
+        ],
+        [
+            'text' => 'ROLES',
+            'url' => 'admin/roles',
+         
+        ],
+        [
+            'text' => 'PERMISOS',
+            'url' => 'admin/permissions',
+         
+        ],
+        ['header' => 'GESTIÓN DE CONTENIDOS'],
         [
             'text' => 'CATEGORIAS',
             'url' => 'admin/categories',
@@ -338,6 +353,7 @@ return [
             'url' => 'admin/products',
 
         ],
+        ['header' => 'EVENTOS'],
         [
             'text' => 'CALENDARIO',
             'url' => 'admin/events',
@@ -437,17 +453,17 @@ return [
             'files' => [
                 [
                     'type' => 'js',
-                    'asset' => false,
+                    'asset' => true,
                     'location' => '//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js',
                 ],
                 [
                     'type' => 'js',
-                    'asset' => false,
+                    'asset' => true,
                     'location' => '//cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js',
                 ],
                 [
                     'type' => 'css',
-                    'asset' => false,
+                    'asset' => true,
                     'location' => '//cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css',
                 ],
             ],
@@ -482,8 +498,8 @@ return [
             'files' => [
                 [
                     'type' => 'js',
-                    'asset' => true,
-                    'location' => '//cdn.jsdelivr.net/npm/sweetalert2@8',
+                    'asset' => false,
+                    'location' => '//cdn.jsdelivr.net/npm/sweetalert2@11',
                 ],
             ],
         ],

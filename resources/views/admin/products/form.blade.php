@@ -1,6 +1,6 @@
 <div class="col-md-6">
     <label for="name">Nombre</label>
-    <input class="form-control @error('name') is-invalid @enderror" placeholder="Name" name="name" type="text"
+    <input class="form-control @error('name') is-invalid @enderror" placeholder="Nombre" name="name" type="text"
         value="{{ old('name',@$product->name) }}" id="name">
     @error('name')
     <div class="invalid-feedback">{{ $message }}</div>
@@ -17,7 +17,7 @@
 <div class="col-md-6">
     <label for="price">Precio</label>
     <input type="number" class="form-control @error('price') is-invalid @enderror" placeholder="Precio" name="price"
-        step="0.01" min="0"  value="{{ old('price',@$product->price) }}" id="price">
+        step="0.01" min="0" value="{{ old('price',@$product->price) }}" id="price">
     @error('price')
     <div class="invalid-feedback">{{ $message }}</div>
     @enderror

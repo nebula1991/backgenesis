@@ -22,7 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('categories/all',[ CategoryController::class,'all'] );
+Route::get('categories/all',[ CategoryController::class,'all'] ); 
 Route::resource('categories', CategoryController::class)->except('create','edit');
 
     

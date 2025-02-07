@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Category;
 use App\Models\RateProduct;
 use App\Models\Subcategory;
 use Illuminate\Support\Str;
@@ -36,9 +37,11 @@ class ProductController extends Controller
                 }
             });
         }
+    
+        
         // Obtener los productos con las relaciones de categoria y subcategoria
         $products = $query->with(['category', 'subcategory', 'rateProducts'])->paginate(10); // Cargar las relaciones de category y subcategory
-
+      
         // Retornar la vista con los productos cargados
         return view('admin.products.index', [
             'products' => $products,

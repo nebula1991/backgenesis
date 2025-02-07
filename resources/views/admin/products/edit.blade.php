@@ -23,29 +23,32 @@
              
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('products.update', $product->id) }}"  role="form" enctype="multipart/form-data" class="row g-3">
+                        <form method="POST" action="{{ route('admin.products.update', $product->id) }}"  role="form" enctype="multipart/form-data" class="row g-3">
                             {{ method_field('PATCH') }}
                             @csrf
 
-                            @include('admin.products.form')
-                            <h5>Temporadas</h5>
-                           
-                    
-                            @include('admin.products.form_rates')
-                      
-                    
-                            
-                            
-                            <div class="col-md-4 mt-2">
-                                <button type="submit" class="btn btn-success">Guardar</button>
-                            </div>
-                    
 
+                         
+                                @include('admin.products.form')
+
+                                <div class="container">
+                                    <h5>Temporadas</h5>
+                            
+                        
+                                    @include('admin.products.form_rates')
+    
+                            
+                         
+                                <div class="row">
+                                    <div class="col-md-6 mt-2">
+                                        <button type="submit" class="btn btn-success">Guardar</button>
+                                    </div>
+                                </div>
+                              
+                        
+                            </div>
                         </form>
 
-                   
-                    
-                
                     </div>
                 </div>
             </div>

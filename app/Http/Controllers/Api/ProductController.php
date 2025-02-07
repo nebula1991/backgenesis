@@ -11,7 +11,8 @@ class ProductController extends Controller
 
     public function all()
     {
-        return response()->json(Product::get());
+        $products = Product::all();
+        return response()->json($products);
     }
     
     public function index()
@@ -31,8 +32,16 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Product $product)
+    public function show($id)
     {
+        $product = Product::find($id);
+
+        if (!$product) {
+            return response()->json([
+                'message' => 'Producto no encontrado'
+            ], 404);
+        }
+
         return response()->json($product);
     }
 

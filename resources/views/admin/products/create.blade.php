@@ -18,7 +18,9 @@
 
                 <div class="card">
                     <div class="card-header">
-                       Crear Producto
+                   
+                            <a class="btn btn-primary float-end btn-sm" href="{{ route('admin.category.index') }}"> Atras </a>
+                 
                     </div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('admin.products.store') }}"  role="form" enctype="multipart/form-data" class="row g-3">
@@ -27,7 +29,7 @@
                             @include('admin.products.form')
 
                             <div class="col-12 mt-2">
-                                <button type="submit" class="btn btn-primary">Guardar</button>
+                                <button type="submit" class="btn btn-success">Guardar</button>
                             </div>
                         </form>
                     </div>

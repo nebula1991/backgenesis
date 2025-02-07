@@ -19,14 +19,14 @@
         <div class="mb-3">
             <label for="category_id" class="form-label">Categoría</label>
             <select name="category_id" id="category_id" class="form-control" required>
-                <option value="{{ old('name',@$category->name) }}" id="name">Seleccione una categoría</option>
                 @foreach($categories as $category)
-                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                <option value="{{$category->id}}"  {{ old('category_id',@$subcategory->category_id) == $category->id ? 'selected' : '' }} id="name">
+                {{ $category->name }}
+                </option>
                 @endforeach
             </select>
         </div>
 
-<div class="col-12 mt-2">
-    <button type="submit" class="btn btn-success">Enviar</button>
-</div>
+
+
 
