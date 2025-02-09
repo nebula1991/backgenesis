@@ -87,7 +87,6 @@
                                             <th>Num</th>
                                             <th>Nombre</th>
                                             <th>Email</th>
-                                            <th>Rol</th>
                                             <th>Acción</th>
                                         </tr>
                                     </thead>
@@ -97,14 +96,11 @@
                                             <td>{{ $user->id }}</td>
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email }}</td>
-                                            <td>{{ $user->role }}</td>
                                             <td style="width: 150px;">
                                                 <div class="d-flex justify-content-center">
-                                                    <a class="btn btn-info btn-sm mr-2" href="#"><i
-                                                        class="fa fa-fw fa-eye"></i> </a>
                                                     <a class="btn btn-warning btn-sm mr-2" href="{{route('admin.users.edit', $user)}}"><i
                                                         class="fa fa-fw fa-edit"></i> </a>
-                                                    <form action="{{ route('admin.users.destroy',$user->id) }}"
+                                                    <form action="{{ route('admin.users.destroy',$user) }}"
                                                          method="POST" class="formEliminar">
                                                     
                                                         @csrf

@@ -26,7 +26,7 @@ class HomeController extends Controller
         
  
         
-        return view('home',[
+        return view('admin.dashboard',[
             'categories' => $categories,
             'products' => $products,
        
@@ -45,7 +45,7 @@ class HomeController extends Controller
         $categories = Category::all();
         $category =  Category::where('name', '=', $category)->first();
         $products = Product::where('category_id', '=', $category->id)->get();
-        return view('home',[
+        return view('admin.dashboard',[
             'categories' => $categories,
             'products' => $products
         ]);

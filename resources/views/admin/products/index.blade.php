@@ -23,10 +23,11 @@
                     <div class="card">
                         <div class="card-header">
 
+                           @role('admin') 
                             <a href="{{ route('admin.products.create') }}"
                                 class="btn btn-outline-primary text-uppercase float-end btn-sm"><i
                                     class="fa fa-solid fa-plus"></i> Crear Producto</a>
-
+                            @endrole
     
                             <a href="{{route('admin.products.pdf')}}" class="btn btn-outline-danger btn-sm"
                                 target="_blank">
@@ -104,8 +105,11 @@
                                                                 class="fa fa-fw fa-edit"></i> </a>
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger btn-sm me-2"><i
-                                                                class="fa fa-fw fa-trash"></i> </button>
+                                                        @role('admin')
+                                                            <button type="submit" class="btn btn-danger btn-sm me-2"><i
+                                                                    class="fa fa-fw fa-trash"></i> 
+                                                            </button>
+                                                        @endrole
                                                     </form>
                                                 </div>
                                             </td>

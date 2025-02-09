@@ -23,10 +23,12 @@
                     <div class="card">
                         <div class="card-header">
 
+                            @role('admin')
                             <button type="button" class="btn btn-outline-primary text-uppercase" data-toggle="modal"
                                 data-target="#crearCategoria">
                                 <i class="fa fa-solid fa-plus"></i> Nueva categoria
                             </button>
+                            @endrole
 
                             <!-- Modal Crear Categorias -->
                             <div class="modal fade" id="crearCategoria" tabindex="-1" role="dialog"
@@ -106,8 +108,10 @@
                                                                 class="fa fa-fw fa-edit"></i> </a>
                                                         @csrf
                                                         @method('DELETE')
+                                                        @role('admin')
                                                         <button type="submit" class="btn btn-danger btn-sm"><i
                                                                 class="fa fa-fw fa-trash"></i> </button>
+                                                        @endrole
                                                     </form>
                                                 </div>
                                             </td>

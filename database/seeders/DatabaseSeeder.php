@@ -20,7 +20,6 @@ class DatabaseSeeder extends Seeder
             'name' => 'StudioGenesis',
             'email' => 'admin@admin.com',
             'password' => bcrypt('password'),
-            'role' => 'admin'
         ]);
         
         $this->call(CategorySeeder::class);

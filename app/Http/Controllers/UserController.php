@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -47,7 +48,10 @@ class UserController extends Controller
     public function edit(string $id)
     {
         $user = User::find($id);
-        return $user;
+
+        $roles = Role::all();
+        
+        return view('admin.users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -55,7 +59,10 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $user = User::find($id);
+        $user->roles()->sync($request->roles);
+
+        return redirect()->route('admin.users.edit', $user);
     }
 
     /**

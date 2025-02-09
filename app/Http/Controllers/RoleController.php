@@ -14,9 +14,9 @@ class RoleController extends Controller
     public function index()
     {
         //
-        $role = Role::all();
+        $roles = Role::all();
 
-        return view('admin.roles.index', compact('role'));
+        return view('admin.roles.index', compact('roles'));
     }
 
     /**
@@ -63,6 +63,8 @@ class RoleController extends Controller
     {
         //
         $role->permissions()->sync($request->permissions);
+
+        return redirect()->route('admin.roles.edit', $role);
     }
 
     /**

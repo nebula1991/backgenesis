@@ -1,36 +1,38 @@
 @extends('adminlte::page')
 
-@section('title', '')
+@section('title')
 
 @section('content_header')
+
 <div class="row">
     <div class="col-12 text-center">
-        <h1 class="text-uppercase">Actualizar Cliente</h1>
+        <h1 class="text-uppercase">Usuarios y Roles</h1>
     </div>
 </div>
+
 @stop
 
 @section('content')
-    <section class=" container-fluid py-4">
-        <div class="row mx-md-5">
-        
-            <div class="col-md-12">
 
-                <div class="card">
-                    <div class="card-header">
-                            <a class="btn btn-primary float-end btn-sm" href="{{ route('admin.category.index') }}"> Atras </a>
-                    </div>
-                    <div class="card-body">
-                        <form method="POST" action="{{ route('admin.category.update', $category->id) }}" class="row g-3">
-                            {{ method_field('PATCH') }}
-                            @csrf
+<div class="card">
+    <div class="card-header">
+       <p>{{$user->name}}</p> 
+    </div>
+    <div class="card-body">
+       <h5>Lista de Permisos</h5>
+       {!!Form::model($user,['route' => ['admin.users.update', $user],'method' => 'put']) !!}
 
-                            @include('admin.category.form')
-
-                        </form>
-                    </div>
-                </div>
+         @foreach($roles as $role)
+            <div class="form-check">
+                <label for="">
+                    {!! Form::checkbox('roles[]', $role->id, $user->hasAnyRole($role->id) ? : false, ['class' => 'form-check-input']) !!}
+                    {{$role->name}}
+                </label>
             </div>
-        </div>
-    </section>
-@endsection
+            @endforeach
+            {!! Form::submit('Asignar Roles', ['class' => 'btn btn-primary mt-2']) !!}
+       {!! Form::close() !!}
+    </div>
+</div>
+
+@stop

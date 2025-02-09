@@ -20,12 +20,12 @@
     </div>
     <div class="card-body">
        <h5>Lista de Permisos</h5>
-       {!!Form::model($role,['route' => ['roles.update', $role],'method' => 'put']) !!}
+       {!!Form::model($role,['route' => ['admin.roles.update', $role],'method' => 'put']) !!}
 
          @foreach($permissions as $permission)
             <div class="form-check">
                 <label for="">
-                    {!! Form::checkbox('permissions[]', $permission->id, null, ['class' => 'form-check-input']) !!}
+                    {!! Form::checkbox('permissions[]', $permission->id, $role->hasPermissionTo($permission->id) ? : false, ['class' => 'form-check-input']) !!}
                     {{$permission->name}}
                 </label>
             </div>

@@ -16,9 +16,9 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->role === 'admin') {
-            return $next($request);
+        if (!Auth::check()) {
+            return redirect('/login');
         }
-        return redirect('/home')->with('error', 'Acceso no autorizado.');
+        return next($request);
     }
 }

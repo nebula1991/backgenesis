@@ -20,11 +20,11 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                {{-- <a href="{{route('admin.subcategory.create')}}" class="btn btn-outline-info text-uppercase float-end btn-sm"><i class="fa fa-solid fa-plus"></i>  Nueva Subcategoría</a> --}}
-                                <button type="button" class="btn btn-outline-primary text-uppercase" data-toggle="modal" data-target="#crearSubcategoria">
-                                    <i class="fa fa-solid fa-plus"></i> Nueva subcategoria
-                                  </button>
-                                  
+                                @role('admin')
+                                    <button type="button" class="btn btn-outline-primary text-uppercase" data-toggle="modal" data-target="#crearSubcategoria">
+                                        <i class="fa fa-solid fa-plus"></i> Nueva subcategoria
+                                    </button>
+                                @endrole
                                   {{-- Modal subcategorias --}}
                                   <div class="modal fade" id="crearSubcategoria" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
@@ -96,7 +96,10 @@
                                                             <a class="btn btn-sm btn-warning" href="{{ route('admin.subcategory.edit', $subcategory->id) }}"><i class="fa fa-fw fa-edit"></i></a>
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>
+
+                                                           @role('admin') 
+                                                             <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>
+                                                            @endrole
                                                         </form>
                                                     </td>
                                                 </tr>

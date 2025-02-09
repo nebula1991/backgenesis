@@ -10,15 +10,13 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\MostrarProductosController;
 
-//Ruta de la página principal
-Route::get('/login', function () {
-    return view('auth.login');
-});
+
 
 
 //Rutas de autenticación
@@ -27,10 +25,21 @@ Auth::routes();
 //Elimina opciones de registro para administrador**
 // Auth::routes(['register'=>false,'reset'=>false,'verify'=>false]);
 
+Route::get('/login', function () {
+    return view('auth.login');
+})->name('login');
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::middleware(['auth','admin'])->prefix('admin')->name('admin.')->group(function(){
+Route::get('/', [HomeController::class, 'index'])->name('dashboard');
+
+
+Route::get('/welcome', [WelcomeController::class, 'index'])->name('welcome');
+
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function(){
+
+//Ruta de la página principal
+
+
 
     Route::resource('users', UserController::class)->names('users');
     Route::resource('roles', RoleController::class)->names('roles');
