@@ -11,11 +11,16 @@ class Event extends Model
 
 
 
-    protected $fillable = ['title','product_id','units','price', 'start', 'end'];
+    protected $fillable = ['title','product_id','supplier_id','units','price', 'start', 'end'];
 
-    public function Products()
+    public function Product()
     {
     return $this->belongsTo(Product::class);
     } 
+
+    public function Supplier()
+    {
+        return $this->belongsTo(Supplier::class);
+    }
 
 }

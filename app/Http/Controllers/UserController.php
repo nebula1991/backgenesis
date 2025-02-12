@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 
@@ -11,9 +12,21 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-            $users = User::all();
+        $query = User::query();
+
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where(function ($q) use ($search) {
+                foreach (User::$searchable as $attribute) {
+                    $q->orWhere($attribute, 'like', '%' . $search . '%');
+                }
+            });
+     
+
+        }
+            $users = $query->paginate(10);
 
             return view('admin.users.index', compact('users'));
     }
@@ -75,4 +88,6 @@ class UserController extends Controller
 
         return back();
     }
+
+
 }

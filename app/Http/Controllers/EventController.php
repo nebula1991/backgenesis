@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SupplierOrderMail;
 use App\Models\Event;
 use App\Models\Product;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class EventController extends Controller
 {
@@ -41,8 +44,9 @@ class EventController extends Controller
     }
     public function index(Request $request)
     {
-        $products = Product::all()->where('stock','>',0);
-        return view('admin.events.index', compact('products'));
+        $products = Product::where('stock','>',0)->get();
+        $suppliers = Supplier::all();
+        return view('admin.events.index', compact('products', 'suppliers'));
     }
 
 
@@ -63,7 +67,8 @@ class EventController extends Controller
         $request->validate([
             'title' => 'required|max:255',
             'product_id' => 'required|exists:products,id',
-            'units' => 'required|numeric|min:0',
+            'supplier_id' => 'required|exists:suppliers,id',
+            'units' => 'required|integer|min:1',
             'start' => 'required|date',
             'end' => 'nullable|date|after_or_equal:start',
             'startTime' => 'required|date_format:H:i',
@@ -71,6 +76,7 @@ class EventController extends Controller
         ]);
 
         $product = Product::findOrFail($request->product_id);
+   
 
         $price = $product->price; //Precio del producto
         $date = Carbon::parse($request->start)->toDateString(); //Fecha del evento
@@ -94,17 +100,26 @@ class EventController extends Controller
         $endDateTime = $request->end && $request->endTime ?
             Carbon::parse($request->end . ' ' . $request->endTime)->setTimezone(config('app.timezone')) :
             $startDateTime;
- 
+
+
+           
 
         // Guardamos el evento
         $evento = Event::create([
             'title' => $request->title,
             'product_id' => $request->product_id,
+            'supplier_id' => $request->supplier_id,
             'units' => $request->units,
             'price' => $precioTotal,
             'start' => $startDateTime,
             'end' => $endDateTime,
         ]);
+
+    
+        $supplier = Supplier::findOrFail($request->supplier_id);
+    
+        Mail::to($supplier->email)->send(new SupplierOrderMail($evento));
+ 
 
         return response()->json($evento);
         
@@ -134,7 +149,7 @@ class EventController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|max:255',
             'product_id' => 'required|integer|min:0',
-            'units' => 'required',
+            'units' => 'required|integer|min:1',
             'start' => 'required|date',
             'end' => 'nullable|date|after_or_equal:start',
             'startTime' => 'required|date_format:H:i',

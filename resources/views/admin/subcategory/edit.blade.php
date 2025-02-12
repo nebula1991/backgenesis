@@ -29,6 +29,9 @@
 
                             @include('admin.subcategory.form')
 
+                            <div class="col-md-6 mt-2 d-flex float-end">
+                                <button type="submit" class="btn btn-success">Guardar</button>
+                            </div>
                         </form>
                     </div>
                 </div>

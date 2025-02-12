@@ -62,18 +62,19 @@
 
                         </div> --}}
                         <div class="card-body">
-                            <!-- Search and Filter Form -->
-                            <form action="{{ route('admin.users.index') }}" method="GET" class="row g-3">
-                                <div class="col-md-4">
-                                    <input type="text" name="search" class="form-control form-control-sm"
-                                        placeholder="Search" value="{{ request('search') }}">
-                                </div>
-                                <div class="col-md-3">
-
-                                    <a href="{{ route('admin.users.index') }}"><button type="submit"
-                                            class="btn btn-secondary btn-sm">Buscar</button></a>
-                                </div>
-                            </form>
+                                         <!-- Search and Filter Form -->
+                                         <form action="{{ route('admin.users.index') }}" method="GET" class="row g-3">
+                                            <div class="col-md-4">
+                                                <input type="text" name="search" class="form-control form-control-sm"
+                                                    placeholder="Search" value="{{ request('search') }}">
+                                            </div>
+                                            <div class="col-md-3">
+            
+                                                <a href="{{ route('admin.users.index') }}"><button type="submit"
+                                                        class="btn btn-secondary btn-sm">Buscar</button></a>
+                                            </div>
+                                        </form>
+                                        
                             @if($users->isEmpty())
                             <div
                                 class="col-md-12 mt-2  text-uppercase text-center font-weight-bold alert alert-warning">
@@ -121,7 +122,7 @@
                 </div>
             </div>
         </div>
-        {{-- {{$users->links('pagination::bootstrap-4')}} --}}
+        {{$users->links('pagination::bootstrap-4')}}
     </div>
 
     @stop

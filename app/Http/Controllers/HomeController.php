@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,14 +24,17 @@ class HomeController extends Controller
     {
         $categories = Category::all();
         $products = Product::all();
+        $suppliers = Supplier::all();
         
  
         
-        return view('admin.dashboard',[
-            'categories' => $categories,
-            'products' => $products,
+        return view('admin.dashboard',compact('categories', 'products', 'suppliers')
+        // [
+        //     'categories' => $categories,
+        //     'products' => $products,
        
-        ]);
+        // ]
+    );
     }
 
     public function product($productId)

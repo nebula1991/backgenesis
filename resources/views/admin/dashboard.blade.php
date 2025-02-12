@@ -6,7 +6,7 @@
 @section('content_header')
 <div class="row">
     <div class="col-12 text-center">
-        <h1>Administrador</h1>
+        <h1 class="text-uppercase">Dashboard</h1>
     </div>
 </div>
 
@@ -65,6 +65,26 @@
                         <i class="fas fa-boxes"></i>
                     </div>
                     <a href="{{route('admin.products.index')}}" class="small-box-footer">Más info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+  
+
+            <div class="col-lg-4 col-6">
+                <div class="small-box bg-secondary text-center">
+                    <div class="inner mt-4">
+                        <div class="icon">
+                            <i class="fas fa-user "></i>
+                        </div>
+                
+                        <h5>
+                            Distribuidores
+                        </h5>
+                        <h3>{{ \App\Models\Supplier::count() }} </h3>
+                   
+                    </div>
+         
+                    <a href="#" class="small-box-footer">Más info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
 

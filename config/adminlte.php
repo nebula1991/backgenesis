@@ -353,6 +353,11 @@ return [
             'url' => 'admin/products',
 
         ],
+        [
+            'text' => 'PROVEEDORES',
+            'url' => 'admin/suppliers',
+
+        ],
         ['header' => 'EVENTOS'],
         [
             'text' => 'CALENDARIO',

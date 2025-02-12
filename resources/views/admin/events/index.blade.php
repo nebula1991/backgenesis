@@ -53,7 +53,16 @@
                     </div>
 
                     <div class="form-group">
-                      <label for="units">units</label>
+                    <label for="supplier_id">Proveedor</label>
+                    <select name="supplier_id" id="supplier_id">
+                        @foreach ($suppliers as $supplier)
+                            <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
+                        @endforeach
+                    </select>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="units">Unidades</label>
                       <input type="number"
                         class="form-control" name="units" id="units" min="1" required placeholder="unidades">
                     </div>
@@ -143,6 +152,7 @@
             console.log(info);
             console.log(info.event.title);
             console.log("ID del producto:",info.event.extendedProps.product_id);
+            console.log("ID del proveedor:",info.event.extendedProps.supplier_id);
             console.log(info.event.units);
             console.log(info.event.start);
             console.log(info.event.end);
@@ -154,6 +164,7 @@
 
             $('#title').val(info.event.title);
             $('#product_id').val(info.event.extendedProps.product_id);
+            $('#supplier_id').val(info.event.extendedProps.supplier_id);
             $('#units').val(info.event.extendedProps.units);
 
             
@@ -212,6 +223,7 @@
 
         let units = $('#units').val();
         let productId = $('#product_id').val();
+        let supplierId = $('#supplier_id').val();
         let price = 0;
         let startDate = $('#start').val();
         let endDate = $('#end').val();
@@ -243,6 +255,7 @@
             id: $('#eventId').val(),
             title: $('#title').val(),
             product_id: productId,
+            supplier_id: supplierId,
             units: units,
             price: price,
             start: startDate,

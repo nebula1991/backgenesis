@@ -2,10 +2,12 @@
 
 namespace Database\Seeders;
 
+
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
 
 class ProductSeeder extends Seeder
 {
@@ -13,10 +15,12 @@ class ProductSeeder extends Seeder
      * Run the database seeds.
      */
     public function run(): void
+ 
     {
+
         $datos = [
             array(
-                'name' => 'Madera',
+                'name' => 'Mesa Redonda',
                 'description' => 'Mesa de comedor',
                 'price' => 150,
                 'stock' => 100,
@@ -27,7 +31,7 @@ class ProductSeeder extends Seeder
                 'updated_at' => Carbon::now(),
             ),
             array(
-                'name' => 'Mármol',
+                'name' => 'Mesa Rectangular',
                 'description' => 'Mesa de comedor',
                 'price' => 149.99,
                 'stock' => 100,
@@ -38,7 +42,18 @@ class ProductSeeder extends Seeder
                 'updated_at' => Carbon::now(),
             ),
             array(
-                'name' => 'Madera',
+                'name' => 'Mesa Extensible',
+                'description' => 'Mesa de comedor',
+                'price' => 149.99,
+                'stock' => 100,
+                'image' => 'images/products/1738451209_1-54558547.jpg',
+                'category_id'  => 1,
+                'subcategory_id' => 1,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ),
+            array(
+                'name' => 'Silla de Madera',
                 'description' => 'Silla de comedor',
                 'price' => 200,
                 'stock' => 100,
@@ -49,7 +64,7 @@ class ProductSeeder extends Seeder
                 'updated_at' => Carbon::now(),
             ),
             array(
-                'name' => 'Ratán',
+                'name' => 'Silla de Ratán',
                 'description' => 'Silla de comedor',
                 'price' => 80,
                 'stock' => 100,
@@ -60,7 +75,18 @@ class ProductSeeder extends Seeder
                 'updated_at' => Carbon::now(),
             ),
             array(
-                'name' => 'Grande',
+                'name' => 'Silla de Metal',
+                'description' => 'Silla de comedor',
+                'price' => 80,
+                'stock' => 100,
+                'image' => 'images/products/1738451209_1-54558547.jpg',
+                'category_id'  => 1,
+                'subcategory_id' => 2,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ),
+            array(
+                'name' => 'Sofa modular',
                 'description' => 'Sofá de comedor',
                 'price' => 800,
                 'stock' => 100,
@@ -71,7 +97,18 @@ class ProductSeeder extends Seeder
                 'updated_at' => Carbon::now(),
             ),
             array(
-                'name' => 'Pequeño',
+                'name' => 'Sofá chaise longue',
+                'description' => 'Sofá de comedor',
+                'price' => 400,
+                'stock' => 100,
+                'image' => 'images/products/1738451209_1-54558547.jpg',
+                'category_id'  => 1,
+                'subcategory_id' => 3,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ),
+            array(
+                'name' => 'Sofá cama',
                 'description' => 'Sofá de comedor',
                 'price' => 400,
                 'stock' => 100,
@@ -181,7 +218,8 @@ class ProductSeeder extends Seeder
                 'updated_at' => Carbon::now(),
             ),
         ];
-        
+    
         DB::table('products')->insert($datos);
+
     }
 }

@@ -19,7 +19,7 @@
                 <div class="card">
                     <div class="card-header">
                    
-                            <a class="btn btn-primary float-end btn-sm" href="{{ route('admin.category.index') }}"> Atras </a>
+                            <a class="btn btn-primary float-end btn-sm" href="{{ route('admin.products.index') }}"> Atras </a>
                  
                     </div>
                     <div class="card-body">

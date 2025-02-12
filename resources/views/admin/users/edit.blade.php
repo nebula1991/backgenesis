@@ -16,7 +16,9 @@
 
 <div class="card">
     <div class="card-header">
-       <p>{{$user->name}}</p> 
+        <p>{{$user->name}}</p> 
+        <a class="btn btn-primary float-end btn-sm" href="{{ route('admin.users.index') }}"> Atrás </a>
+      
     </div>
     <div class="card-body">
        <h5>Lista de Permisos</h5>
@@ -30,7 +32,7 @@
                 </label>
             </div>
             @endforeach
-            {!! Form::submit('Asignar Roles', ['class' => 'btn btn-primary mt-2']) !!}
+            {!! Form::submit('Asignar Roles', ['class' => 'btn btn-success mt-2']) !!}
        {!! Form::close() !!}
     </div>
 </div>
