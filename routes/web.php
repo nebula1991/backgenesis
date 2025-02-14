@@ -5,6 +5,7 @@ use Inertia\Inertia;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -12,8 +13,10 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\SubcategoryController;
+use App\Http\Controllers\ProductFrontendController;
 use App\Http\Controllers\MostrarProductosController;
 
 
@@ -30,20 +33,25 @@ Route::get('/login', function () {
 })->name('login');
 
 
-Route::get('/', [HomeController::class, 'index'])->name('dashboard');
+Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 
+//Rutas Frontend Productos
 
+Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
+Route::get('/category/{category}', [ProductFrontendController::class, 'showCategory'])->name('category.show');
+Route::get('/subcategory/{subcategory}', [ProductFrontendController::class, 'showSubcategory'])->name('subcategory.show');
+Route::get('/product/{id}', [ProductFrontendController::class, 'showProduct'])->name('product.show');
 
-Route::get('/welcome', [WelcomeController::class, 'index'])->name('welcome');
-Route::get('/category/{category}', [WelcomeController::class, 'showCategory'])->name('category.show');
-Route::get('/subcategory/{subcategory}', [WelcomeController::class, 'showSubcategory'])->name('subcategory.show');
+//Rutas Frontend Carrito
+Route::post('/cart/add/{id}',[CartController::class, 'add'])->name('cart.add');
+Route::get('/cart',[CartController::class, 'index'])->name('cart.show');
+Route::patch('/cart/update',[CartController::class, 'update'])->name('cart.update');
+Route::delete('/cart/remove/{id}',[CartController::class, 'remove'])->name('cart.remove');
 
 
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function(){
 
-//Ruta de la página principal
-
-
+//Rutas crud
 
     Route::resource('users', UserController::class)->names('users');
     Route::resource('roles', RoleController::class)->names('roles');
@@ -57,6 +65,8 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function(){
     Route::get('products/pdf', [ProductController::class, 'pdf'])->name('products.pdf');
     Route::get('products/excel', [ProductController::class, 'excel'])->name('products.excel');
 
+    Route::resource('suppliers', SupplierController::class)->names('suppliers');
+    Route::get('suppliers/pdf', [ProductController::class, 'pdf'])->name('suppliers.pdf');
     //Rutas de calendario
     // Route::resource('events',EventController::class)->names('events');
     Route::get('events/precio/{product_id}', [EventController::class, 'getPrecioProduct'])->name('events.precio');

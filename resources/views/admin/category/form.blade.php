@@ -17,6 +17,3 @@
 
      
 
-{{-- <div class="col-12 mt-2">
-    <button type="submit" class="btn btn-success">Enviar</button>
-</div> --}}

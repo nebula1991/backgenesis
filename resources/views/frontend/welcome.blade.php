@@ -26,8 +26,11 @@
         <div class="col-md-12">
             <h1 class="mb-4 text-center">Productos</h1>
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+               
                 @forelse ($products as $product)
-                    <div class="col">
+                <div class="col">
+                    <a href="{{route('product.show', $product->id)}}" class="text-decoration-none text-dark">
+                   
                         <div class="card h-100 shadow-sm">
                             <img src="{{asset($product->image)}}" class="card-img-top" alt="{{ $product->name }}" 
                                  style="height: 200px; object-fit: cover;"
@@ -40,14 +43,17 @@
                                     <span class="h5 mb-0">€{{ number_format($product->price, 2) }}</span>
                                 </div>
                                 <div class="d-flex justify-content-center align-items-center mt-4">
-                                    <a href="#" 
-                                        class="btn btn-sm btn-primary">Añadir al carrito
-                                    </a>
+                                    <form action="{{route('cart.add', $product->id)}}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-sm btn-primary">Añadir al carrito</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
+                    </a>
                     </div>
                 @empty
+              
                     <div class="col-12">
                         <div class="alert alert-info">
                             No hay productos disponibles en este momento.

@@ -14,13 +14,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\User::factory(10)->create();
-
-        \App\Models\User::factory()->create([
-            'name' => 'StudioGenesis',
-            'email' => 'admin@admin.com',
-            'password' => bcrypt('password'),
-        ]);
+    
         
         $this->call(CategorySeeder::class);
         $this->call(SubcategorySeeder::class);
@@ -28,7 +22,8 @@ class DatabaseSeeder extends Seeder
         $this->call(RateProductSeeder::class);
         $this->call(class: SupplierSeeder::class);
         $this->call(class: RoleSeeder::class);
-       
+        $this->call(class: PermissionSeeder::class);
+        $this->call(UserSeeder::class);
 
         
        

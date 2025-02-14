@@ -49,8 +49,7 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
-        //
-        // $role = Role::find($id);
+
         $permissions = Permission::all();
 
         return view('admin.roles.rolePermission', compact('role','permissions'));
@@ -62,9 +61,11 @@ class RoleController extends Controller
     public function update(Request $request, Role $role)
     {
         //
-        $role->permissions()->sync($request->permissions);
+        $role->permissions()->sync($request->permissions ?? []);
 
-        return redirect()->route('admin.roles.edit', $role);
+        $role->update($request->except('permissions'));
+
+        return redirect()->route('admin.roles.index', $role);
     }
 
     /**
@@ -72,6 +73,7 @@ class RoleController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Role::find($id)->delete();
+        return redirect()->route('admin.roles.index');
     }
 }

@@ -99,9 +99,9 @@
                                                 <td style="width: 150px;">
                                                     <div class="d-flex justify-content-center">
                                                         <a class="btn btn-warning btn-sm mr-2"
-                                                            href="#"><i
+                                                            href="{{route('admin.permissions.edit', $permission->id)}}"><i
                                                                 class="fa fa-fw fa-edit"></i> </a>
-                                                        <form action="#"
+                                                        <form action="{{route('admin.permissions.destroy', $permission->id)}}"
                                                             method="POST" class="formEliminar">
 
                                                             @csrf

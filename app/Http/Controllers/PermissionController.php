@@ -45,17 +45,25 @@ class PermissionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+     
+        $permission = Permission::findOrFail($id);
+        return view('admin.permissions.edit', compact('permission'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Permission $permission)
     {
-        //
+        $request->validate([
+            'name' => 'required'
+        ]);
+
+        $permission->update($request->all());
+
+        return redirect()->route('admin.permissions.index');
     }
 
     /**
@@ -63,6 +71,7 @@ class PermissionController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Permission::find($id)->delete();
+        return redirect()->route('admin.permissions.index');
     }
 }
