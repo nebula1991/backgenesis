@@ -21,12 +21,12 @@ class EventController extends Controller
 
         $price = $product->price;
 
-        $date = $request->query('date'); 
+        $date = $request->query('date');
 
-         // Solo busca en rate_products si se proporciona una fecha
+        // Solo busca en rate_products si se proporciona una fecha
         if ($date) {
-                $date = Carbon::parse($date)->toDateString(); // Formatear la fecha
-        
+            $date = Carbon::parse($date)->toDateString(); // Formatear la fecha
+
             $rateProduct = $product->rateProducts()
                 ->where('start_date', '<=', $date)
                 ->where('end_date', '>=', $date)
@@ -37,14 +37,15 @@ class EventController extends Controller
                 $price = $rateProduct->price_rate;
             }
         }
-        
+
         $precioTotal = $price * $units;
 
         return response()->json(['price' => $precioTotal]);
     }
+    
     public function index(Request $request)
     {
-        $products = Product::where('stock','>',0)->get();
+        $products = Product::where('stock', '>', 0)->get();
         $suppliers = Supplier::all();
         return view('admin.events.index', compact('products', 'suppliers'));
     }
@@ -76,7 +77,7 @@ class EventController extends Controller
         ]);
 
         $product = Product::findOrFail($request->product_id);
-   
+
 
         $price = $product->price; //Precio del producto
         $date = Carbon::parse($request->start)->toDateString(); //Fecha del evento
@@ -84,12 +85,12 @@ class EventController extends Controller
         $cantidad = $request->units;
 
         $rateProduct = $product->rateProducts()
-        ->where('start_date','<=', $date)
-        ->where('end_date','>=',$date)
-        ->orderBy('start_date','desc')
-        ->first();
+            ->where('start_date', '<=', $date)
+            ->where('end_date', '>=', $date)
+            ->orderBy('start_date', 'desc')
+            ->first();
 
-        if($rateProduct){
+        if ($rateProduct) {
             $price = $rateProduct->price_rate; //Usar el precio de rate_products si existe
         }
 
@@ -102,7 +103,7 @@ class EventController extends Controller
             $startDateTime;
 
 
-           
+
 
         // Guardamos el evento
         $evento = Event::create([
@@ -115,14 +116,13 @@ class EventController extends Controller
             'end' => $endDateTime,
         ]);
 
-    
+
         $supplier = Supplier::findOrFail($request->supplier_id);
-    
+
         Mail::to($supplier->email)->send(new SupplierOrderMail($evento));
- 
+
 
         return response()->json($evento);
-        
     }
 
     /**
@@ -160,21 +160,21 @@ class EventController extends Controller
         $event = Event::findOrFail($id);
 
         $product = Product::findOrFail($request->product_id);
-        
-       
+
+
         $cantidad = $request->units;
-        
+
         $price = $product->price;
         $date  = Carbon::parse($request->start)->toDateString();
 
         $rateProduct = $product->rateProducts()
-            ->where('start_date','<=', $date)
-            ->where('end_date','>=',$date)
-            ->orderBy('start_date','desc')
+            ->where('start_date', '<=', $date)
+            ->where('end_date', '>=', $date)
+            ->orderBy('start_date', 'desc')
             ->first();
 
 
-        if($rateProduct){
+        if ($rateProduct) {
             $price = $rateProduct->price_rate;
         }
 

@@ -112,4 +112,6 @@ class SupplierController extends Controller
         Supplier::find($id)->delete();
         return redirect()->route('admin.suppliers.index')->with('success', 'Proveedor eliminado correctamente');
     }
+
+
 }

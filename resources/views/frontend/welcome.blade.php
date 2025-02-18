@@ -3,24 +3,7 @@
 @section('content')
 <div class="container mt-5">
     <div class="row">
-        {{-- <!-- Sidebar with filters -->
-        <div class="col-md-3">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="mb-0">Categorías</h5>
-                </div>
-                <div class="card-body">
-                    <div class="list-group">
-                        @foreach($categories as $category)
-                            <a href="{{ route('welcome', ['category' => $category->id]) }}" 
-                               class="list-group-item list-group-item-action">
-                                {{ $category->name }}
-                            </a>
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </div> --}}
+   
 
         <!-- Products grid -->
         <div class="col-md-12">
@@ -62,9 +45,10 @@
                 @endforelse
             </div>
 
-            {{-- <div class="mt-4 d-flex justify-content-center">
-                {{ $products->links() }}
-            </div> --}}
+            <div class="mt-4 d-flex justify-content-center">
+              
+                {{$products->links('pagination::bootstrap-4')}}
+            </div>
         </div>
     </div>
 </div>

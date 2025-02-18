@@ -12,10 +12,10 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class CategoryController extends Controller
 {
-   public function __construct()
-   {
+    public function __construct()
+    {
         $this->middleware('auth');
-   }
+    }
 
     public function index(Request $request)
     {
@@ -40,8 +40,7 @@ class CategoryController extends Controller
 
     public function create()
     {
-        // $categories = Category::whereNull()->get();
-        // $relatedData = $this->getRelatedData(new Category());
+   
         $category = new Category();
         $relatedData['category'] = $category;
         return view('admin.category.create', $relatedData);
@@ -63,7 +62,7 @@ class CategoryController extends Controller
             'name' => 'required|min:5|max:30',
             'description' => 'required|max:200',
         ]);
-      
+
 
         $category = Category::create($request->all());
 
@@ -114,18 +113,18 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Category $category)
-    {       
+    {
 
-          $request->validate([
+        $request->validate([
             'name' => 'required|min:5|max:30',
             'description' => 'required|max:200',
         ]);
-     
 
-    
+
+
         $category->update($request->all());
 
-        
+
         return redirect()->route('admin.category.index')->with('success', 'Categoria actualizada con éxito.');
     }
 
@@ -161,7 +160,7 @@ class CategoryController extends Controller
                 $relationName = Str::before($column, '_id');
                 $relatedModelClass = 'App\\Models\\' . Str::studly($relationName);
                 if (class_exists($relatedModelClass)) {
-                     $relatedData[Str::plural($relationName)] = $relatedModelClass::all();
+                    $relatedData[Str::plural($relationName)] = $relatedModelClass::all();
                 }
             }
         }

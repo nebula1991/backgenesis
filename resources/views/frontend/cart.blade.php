@@ -69,9 +69,20 @@
             </table>
         </div>
         
-        <div class="d-flex justify-content-end mt-4">
-            <a href="#" class="btn btn-success">Proceder al pago</a>
-        </div>
+            @auth
+                <div class="d-flex justify-content-end mt-4">
+                    <a href="{{route('orders.checkout')}}" class="btn btn-success">Proceder al pago</a>
+                </div>
+
+            @else
+
+                <div class="text-end">
+                    <p class="text-muted mb-2">Necesitas iniciar sesión para realizar el pedido</p>
+                    <a href="{{ route('login') }}" class="btn btn-primary me-2">Iniciar sesión</a>
+                    <a href="{{ route('register') }}" class="btn btn-outline-primary">Registrarse</a>
+                </div>
+            @endauth
+   
     @else
         <div class="alert alert-info">
             Tu carrito está vacío.

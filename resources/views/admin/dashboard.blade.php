@@ -74,7 +74,7 @@
                 <div class="small-box bg-secondary text-center">
                     <div class="inner mt-4">
                         <div class="icon">
-                            <i class="fas fa-user "></i>
+                            <i class="fas fa-truck "></i>
                         </div>
                 
                         <h5>
@@ -84,7 +84,7 @@
                    
                     </div>
          
-                    <a href="#" class="small-box-footer">Más info <i class="fas fa-arrow-circle-right"></i></a>
+
                 </div>
             </div>
 
@@ -92,7 +92,7 @@
                 <div class="small-box bg-dark text-center">
                     <div class="inner mt-4">
                         <div class="icon">
-                            <i class="fas fa-user-plus text-teal"></i>
+                            <i class="fas fa-user-plus"></i>
                         </div>
                 
                         <h5>
@@ -102,14 +102,32 @@
                    
                     </div>
          
-                    <a href="#" class="small-box-footer">Más info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-6">
+                <div class="small-box bg-red text-center">
+                    <div class="inner mt-4">
+                        <div class="icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                
+                        <h5>
+                            Total pedidos: 
+                        </h5>
+                        <h3>{{ \App\Models\Order::count() }} </h3>
+                   
+                    </div>
+         
                 </div>
             </div>
 
 
+       
   
         </div>
-
+        <h1>{{ $chart->options['chart_title'] }}</h1>
+        {!! $chart->renderHtml() !!}
     </div>
     </div>
 </div>
@@ -117,9 +135,10 @@
 
 @stop
 
-
-
-
+@section('js')
+{!! $chart->renderChartJsLibrary() !!}
+{!! $chart->renderJs() !!}
+@stop
 
 
 

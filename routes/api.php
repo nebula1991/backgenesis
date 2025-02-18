@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\EventController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\SubcategoryController;
+use App\Http\Controllers\Api\SupplierController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,8 +33,11 @@ Route::resource('subcategories', SubcategoryController::class)->except('create',
 Route::get('products/all',[ ProductController::class,'all'] );
 Route::resource('products', ProductController::class)->except('create','edit');
 
+Route::get('suppliers/all',[ SupplierController::class,'all'] );
+Route::resource('suppliers', SupplierController::class)->except('create','edit');
+
 
 Route::get('events/all',[ EventController::class,'all'] );
-Route::resource('events', EventController::class);
+Route::resource('events', EventController::class)->except('create','edit');
 
 

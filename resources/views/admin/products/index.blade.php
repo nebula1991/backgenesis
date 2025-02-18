@@ -97,7 +97,7 @@
                                                 <div class="d-flex">
                                                     <form action="{{ route('admin.products.destroy',$product->id) }}"
                                                         method="POST">
-                                                        <a class="btn btn-sm btn-primary me-2 "
+                                                        <a class="btn btn-sm btn-info me-2 "
                                                             href="{{ route('admin.products.show',$product->id) }}"><i
                                                                 class="fa fa-fw fa-eye"></i> </a>
                                                         <a class="btn btn-sm btn-warning me-2"

@@ -9,9 +9,9 @@ use Illuminate\Http\Request;
 class SubcategoryController extends Controller
 {
     public function index(Request $request)
-    {   
+    {
 
-       
+
         $query = Subcategory::query();
 
 
@@ -23,26 +23,25 @@ class SubcategoryController extends Controller
                 }
             });
         }
+
         $categories = Category::all(); // Obtener todas las categorías
         $subcategories = Subcategory::with('categories')->get();
 
         $subcategories = $query->paginate(10);
         return view('admin.subcategory.index', compact('subcategories', 'categories'));
-        
     }
 
     public function create()
     {
         $categories = Category::all(); // Obtener todas las categorías
         return view('admin.subcategory.create', compact('categories'));
-      
     }
-  /**
+    /**
      * Crear una nueva subcategoría.
      */
     public function store(Request $request)
     {
-    
+
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string',
@@ -52,12 +51,10 @@ class SubcategoryController extends Controller
         $subcategory = Subcategory::create($request->all());
 
         return redirect()->route('admin.subcategory.index')
-        ->with('success', 'Categoria creada correctamente.');
-
-    
+            ->with('success', 'Categoria creada correctamente.');
     }
 
-     /**
+    /**
      * Mostrar una subcategoría específica.
      */
     public function show($id)
@@ -68,9 +65,9 @@ class SubcategoryController extends Controller
     public function edit($id)
     {
         $subcategory = Subcategory::find($id);
-      
+
         $categories = Category::all(); // Obtener todas las categorías para el selector
-       
+
 
         return view('admin.subcategory.edit', compact('subcategory', 'categories'));
     }
@@ -86,23 +83,22 @@ class SubcategoryController extends Controller
         ]);
 
         $subcategory = Subcategory::findOrFail($id);
-     
-        // $subcategory->update($request->all());
+
         $subcategory->name = $request->input('name');
         $subcategory->description = $request->input('description');
 
-            // Solo actualizar el 'category_id' si se ha cambiado en el formulario
+        // Solo actualizar el 'category_id' si se ha cambiado en el formulario
         if ($subcategory->category_id !== $request->input('category_id')) {
             $subcategory->category_id = $request->input('category_id');
         }
 
-          // Guardar los cambios
-            $subcategory->save();
+        // Guardar los cambios
+        $subcategory->save();
 
         return redirect()->route('admin.subcategory.index')->with('success', 'Subcategoría actualizada correctamente.');
     }
 
-     /**
+    /**
      * Eliminar una subcategoría.
      */
     public function destroy($id)
